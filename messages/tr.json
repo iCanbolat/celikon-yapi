@@ -1,0 +1,110 @@
+{
+  "common": {
+    "home": "Ana Sayfa",
+    "services": "Hizmetler",
+    "projects": "Projeler",
+    "about": "Hakkımızda",
+    "contact": "İletişim",
+    "readMore": "Devamını Oku",
+    "viewProject": "Projeyi Görüntüle",
+    "allProjects": "Tüm Projeler",
+    "backToProjects": "Projelere Dön",
+    "loading": "Yükleniyor...",
+    "error": "Bir hata oluştu",
+    "notFound": "Sayfa bulunamadı"
+  },
+  "home": {
+    "hero": {
+      "title": "Kaliteli İnşaat Çözümleri",
+      "subtitle": "Güvenilir ve profesyonel inşaat hizmetleri ile hayalinizdeki yapıları inşa ediyoruz.",
+      "cta": "Projelerimizi Keşfedin",
+      "badge": "Dürüstlük ve Mükemmellikle İnşa Etmek",
+      "heading": "İSTİSNAİ USTALIK İLE GÜVENİ İNŞA ETMEK",
+      "description": "İlk 25 müteahhit ve geliştirici arasında yer alarak müşteri başarısını artırmaya, büyümeyi teşvik etmeye ve inşa ettiğimiz toplulukları güçlendirmeye kendimizi adadık.",
+      "buttonServices": "TÜM HİZMETLERİ GÖR",
+      "buttonContact": "İLETİŞİME GEÇ"
+    },
+    "featured": {
+      "title": "Öne Çıkan Projeler",
+      "subtitle": "Tamamladığımız en son projelerimize göz atın"
+    }
+  },
+  "services": {
+    "title": "Hizmetlerimiz",
+    "subtitle": "Kapsamlı inşaat çözümleri sunuyoruz",
+    "items": {
+      "construction": {
+        "title": "Genel İnşaat",
+        "description": "Konut, ticari ve endüstriyel yapıların inşaatı"
+      },
+      "renovation": {
+        "title": "Renovasyon",
+        "description": "Mevcut yapıların modernizasyonu ve yenilenmesi"
+      },
+      "consulting": {
+        "title": "Danışmanlık",
+        "description": "Profesyonel inşaat danışmanlığı hizmetleri"
+      },
+      "projectManagement": {
+        "title": "Proje Yönetimi",
+        "description": "Baştan sona proje yönetimi ve koordinasyonu"
+      }
+    }
+  },
+  "projects": {
+    "title": "Projelerimiz",
+    "subtitle": "Başarıyla tamamladığımız projeler",
+    "noProjects": "Henüz proje bulunmamaktadır.",
+    "details": {
+      "client": "Müşteri",
+      "location": "Konum",
+      "year": "Yıl",
+      "category": "Kategori",
+      "description": "Proje Açıklaması",
+      "gallery": "Proje Galerisi"
+    }
+  },
+  "about": {
+    "title": "Hakkımızda",
+    "subtitle": "Celikon İnşaat olarak kalite ve güveni bir arada sunuyoruz",
+    "story": {
+      "title": "Hikayemiz",
+      "content": "Yılların deneyimi ile sektörde öncü konumdayız. Müşteri memnuniyeti odaklı çalışma prensibimiz ile birçok başarılı projeye imza attık."
+    },
+    "values": {
+      "title": "Değerlerimiz",
+      "quality": "Kalite",
+      "trust": "Güven",
+      "innovation": "Yenilikçilik",
+      "safety": "Güvenlik"
+    },
+    "team": {
+      "title": "Ekibimiz",
+      "content": "Deneyimli mühendisler ve uzman kadromuz ile hizmetinizdeyiz."
+    }
+  },
+  "footer": {
+    "description": "Kaliteli ve güvenilir inşaat çözümleri",
+    "quickLinks": "Hızlı Linkler",
+    "contact": "İletişim",
+    "rights": "Tüm hakları saklıdır."
+  },
+  "seo": {
+    "home": {
+      "title": "Celikon İnşaat | Ana Sayfa",
+      "description": "Celikon İnşaat - Kaliteli ve güvenilir inşaat çözümleri. Konut, ticari ve endüstriyel projeler."
+    },
+    "services": {
+      "title": "Hizmetlerimiz | Celikon İnşaat",
+      "description": "İnşaat, renovasyon, danışmanlık ve proje yönetimi hizmetlerimiz hakkında bilgi alın."
+    },
+    "projects": {
+      "title": "Projelerimiz | Celikon İnşaat",
+      "description": "Başarıyla tamamladığımız inşaat projelerimize göz atın."
+    },
+    "about": {
+      "title": "Hakkımızda | Celikon İnşaat",
+      "description": "Celikon İnşaat hakkında bilgi edinin. Vizyonumuz, misyonumuz ve değerlerimiz."
+    }
+  }
+}

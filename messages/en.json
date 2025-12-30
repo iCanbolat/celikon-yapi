@@ -1,0 +1,110 @@
+{
+  "common": {
+    "home": "Home",
+    "services": "Services",
+    "projects": "Projects",
+    "about": "About Us",
+    "contact": "Contact",
+    "readMore": "Read More",
+    "viewProject": "View Project",
+    "allProjects": "All Projects",
+    "backToProjects": "Back to Projects",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "notFound": "Page not found"
+  },
+  "home": {
+    "hero": {
+      "title": "Quality Construction Solutions",
+      "subtitle": "We build your dream structures with reliable and professional construction services.",
+      "cta": "Explore Our Projects",
+      "badge": "Building with Integrity and Excellence",
+      "heading": "BUILDING TRUST THROUGH EXCEPTIONAL CRAFTSMANSHIP",
+      "description": "Ranked among the top 25 builders and developers, we are committed to driving client success, fostering growth, and strengthening the communities we build in.",
+      "buttonServices": "VIEW ALL SERVICES",
+      "buttonContact": "GET IN TOUCH"
+    },
+    "featured": {
+      "title": "Featured Projects",
+      "subtitle": "Take a look at our latest completed projects"
+    }
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "We provide comprehensive construction solutions",
+    "items": {
+      "construction": {
+        "title": "General Construction",
+        "description": "Construction of residential, commercial and industrial buildings"
+      },
+      "renovation": {
+        "title": "Renovation",
+        "description": "Modernization and renewal of existing structures"
+      },
+      "consulting": {
+        "title": "Consulting",
+        "description": "Professional construction consulting services"
+      },
+      "projectManagement": {
+        "title": "Project Management",
+        "description": "End-to-end project management and coordination"
+      }
+    }
+  },
+  "projects": {
+    "title": "Our Projects",
+    "subtitle": "Successfully completed projects",
+    "noProjects": "No projects available yet.",
+    "details": {
+      "client": "Client",
+      "location": "Location",
+      "year": "Year",
+      "category": "Category",
+      "description": "Project Description",
+      "gallery": "Project Gallery"
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "subtitle": "At Celikon Construction, we combine quality and trust",
+    "story": {
+      "title": "Our Story",
+      "content": "We are a pioneer in the sector with years of experience. With our customer satisfaction-oriented working principle, we have signed many successful projects."
+    },
+    "values": {
+      "title": "Our Values",
+      "quality": "Quality",
+      "trust": "Trust",
+      "innovation": "Innovation",
+      "safety": "Safety"
+    },
+    "team": {
+      "title": "Our Team",
+      "content": "We are at your service with our experienced engineers and expert staff."
+    }
+  },
+  "footer": {
+    "description": "Quality and reliable construction solutions",
+    "quickLinks": "Quick Links",
+    "contact": "Contact",
+    "rights": "All rights reserved."
+  },
+  "seo": {
+    "home": {
+      "title": "Celikon Construction | Home",
+      "description": "Celikon Construction - Quality and reliable construction solutions. Residential, commercial and industrial projects."
+    },
+    "services": {
+      "title": "Our Services | Celikon Construction",
+      "description": "Learn about our construction, renovation, consulting and project management services."
+    },
+    "projects": {
+      "title": "Our Projects | Celikon Construction",
+      "description": "Browse our successfully completed construction projects."
+    },
+    "about": {
+      "title": "About Us | Celikon Construction",
+      "description": "Learn about Celikon Construction. Our vision, mission and values."
+    }
+  }
+}
