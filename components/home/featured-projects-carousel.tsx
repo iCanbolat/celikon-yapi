@@ -1,9 +1,6 @@
 "use client";
 
-import { useRef } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
-import "swiper/css";
+import { useRef, useEffect, useState } from "react";
 import type { Project } from "@/lib/contentful";
 import { ProjectCard } from "@/components/projects/project-card";
 import type { Locale } from "@/i18n/routing";
@@ -22,6 +19,35 @@ export function FeaturedProjectsCarousel({
   const hasMultipleSlides = projects.length > 1;
   const prevRef = useRef<HTMLButtonElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);
+  const [SwiperComponents, setSwiperComponents] = useState<any>(null);
+
+  useEffect(() => {
+    // Dynamically load Swiper
+    const loadSwiper = async () => {
+      const [swiperReact, swiperModules] = await Promise.all([
+        import("swiper/react"),
+        import("swiper/modules"),
+      ]);
+      setSwiperComponents({
+        Swiper: swiperReact.Swiper,
+        SwiperSlide: swiperReact.SwiperSlide,
+        Navigation: swiperModules.Navigation,
+      });
+    };
+    loadSwiper();
+  }, []);
+
+  if (!SwiperComponents) {
+    return (
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {projects.slice(0, 3).map((project) => (
+          <ProjectCard key={project.id} project={project} />
+        ))}
+      </div>
+    );
+  }
+
+  const { Swiper, SwiperSlide, Navigation } = SwiperComponents;
 
   return (
     <div className="relative">
@@ -49,7 +75,7 @@ export function FeaturedProjectsCarousel({
       <Swiper
         modules={[Navigation]}
         navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
-        onBeforeInit={(swiper) => {
+        onBeforeInit={(swiper: any) => {
           swiper.params.navigation = {
             ...(swiper.params.navigation as object),
             prevEl: prevRef.current,

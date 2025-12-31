@@ -1,0 +1,8 @@
+/* Non-critical Swiper styles - loaded dynamically */
+@import "swiper/css";
+@import "swiper/css/pagination";
+
+/* Swiper defaults */
+.swiper {
+  padding-bottom: 2.5rem;
+}

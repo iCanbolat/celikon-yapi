@@ -1,7 +1,37 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "swiper/css";
-@import "swiper/css/pagination";
+
+/* Minimal Swiper CSS - only essentials */
+.swiper {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  z-index: 1;
+  display: block;
+  padding-bottom: 2.5rem;
+}
+
+.swiper-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  transition-property: transform;
+  transition-timing-function: ease-out;
+  box-sizing: content-box;
+}
+
+.swiper-slide {
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition-property: transform;
+}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -132,9 +162,4 @@
 
 body {
   background-color: #f9fafb;
-}
-
-/* Swiper defaults */
-.swiper {
-  padding-bottom: 2.5rem;
 }
