@@ -7,6 +7,9 @@ import { ProjectCard } from "@/components/projects/project-card";
 import { Building2, HardHat, Ruler, Users, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HeroSection } from "@/components/home/hero-section";
+import { SectionHeader } from "@/components/layout/section-header";
+import { FeaturedProjectsCarousel } from "@/components/home/featured-projects-carousel";
+import { TrustedPartners } from "@/components/home/trusted-partners";
 
 type Props = {
   params: Promise<{ locale: Locale }>;
@@ -34,7 +37,7 @@ export default async function HomePage({ params }: Props) {
   setRequestLocale(locale);
 
   const t = await getTranslations();
-  const featuredProjects = await getFeaturedProjects(locale, 3);
+  const featuredProjects = await getFeaturedProjects(locale, 6);
 
   return (
     <div>
@@ -42,8 +45,20 @@ export default async function HomePage({ params }: Props) {
       <HeroSection locale={locale} />
 
       {/* Stats Section */}
-      <section className="py-16 bg-white">
+      <section className="pb-16 bg-gray-50">
         <div className="container mx-auto px-4">
+          <SectionHeader
+            badge={locale === "tr" ? "Öne Çıkan Değerler" : "Key Numbers"}
+            title={
+              locale === "tr" ? "Güçlü Referanslar" : "Strong Track Record"
+            }
+            description={
+              locale === "tr"
+                ? "Her projede kalite, güven ve deneyimi bir arada sunuyoruz."
+                : "Delivering quality, trust, and expertise across every project."
+            }
+          />
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
               <Building2 className="w-12 h-12 mx-auto mb-4 text-blue-600" />
@@ -73,27 +88,25 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
+      {/* References */}
+      <TrustedPartners locale={locale} />
+
       {/* Featured Projects Section */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              {t("home.featured.title")}
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              {t("home.featured.subtitle")}
-            </p>
-          </div>
+          <SectionHeader
+            badge={locale === "tr" ? "Öne Çıkan" : "Featured"}
+            title={t("home.featured.title")}
+            description={t("home.featured.subtitle")}
+          />
 
           {featuredProjects.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredProjects.map((project) => (
-                <ProjectCard key={project.id} project={project} />
-              ))}
-            </div>
+            <FeaturedProjectsCarousel
+              projects={featuredProjects}
+              locale={locale}
+            />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Placeholder cards when no projects */}
               {[1, 2, 3].map((i) => (
                 <div
                   key={i}
@@ -120,7 +133,7 @@ export default async function HomePage({ params }: Props) {
           )}
 
           <div className="text-center mt-8">
-            <Button variant="outline" size="lg" asChild>
+            <Button variant="yellow" size="lg" asChild>
               <Link href="/projects">
                 {t("common.allProjects")}
                 <ArrowRight className="w-5 h-5" />

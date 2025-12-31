@@ -47,7 +47,7 @@ export default async function ServicesPage({ params }: Props) {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-900 to-blue-800 text-white py-20">
+      <section className="bg-linear-to-br from-blue-900 to-blue-800 text-white py-20">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">{t("title")}</h1>
           <p className="text-xl text-blue-200 max-w-2xl mx-auto">

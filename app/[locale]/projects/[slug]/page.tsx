@@ -75,7 +75,7 @@ export default async function ProjectDetailPage({ params }: Props) {
     // Show placeholder for development
     return (
       <div>
-        <section className="bg-gradient-to-br from-gray-900 to-gray-800 text-white py-20">
+        <section className="bg-linear-to-br from-gray-900 to-gray-800 text-white py-20">
           <div className="container mx-auto px-4">
             <Link
               href="/projects"
@@ -167,7 +167,7 @@ export default async function ProjectDetailPage({ params }: Props) {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-gray-900 to-gray-800 text-white py-20">
+      <section className="bg-linear-to-br from-gray-900 to-gray-800 text-white py-20">
         <div className="container mx-auto px-4">
           <Link
             href="/projects"
