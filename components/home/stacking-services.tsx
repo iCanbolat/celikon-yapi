@@ -5,12 +5,15 @@ import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
+import type { ProjectCategory } from "@/lib/contentful";
+import { useTranslations } from "next-intl";
 
 interface ServiceData {
   key: string;
   image: string;
   title: string;
   description: string;
+  category: ProjectCategory;
 }
 
 interface StackingServicesProps {
@@ -29,6 +32,7 @@ function ServiceStackCard({
   totalCards: number;
   containerRef: React.RefObject<HTMLDivElement | null>;
 }) {
+  const t = useTranslations("home.services");
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
@@ -90,12 +94,10 @@ function ServiceStackCard({
           {service.description}
         </p>
         <Link
-          href="/services"
+          href={`/projects?category=${service.category}`}
           className="inline-flex items-center gap-3 text-yellow-400 hover:text-yellow-300 transition-colors group"
         >
-          <span className="text-lg font-semibold">
-            {service.key === "restoration" ? "Detaylar" : "Daha Fazla"}
-          </span>
+          <span className="text-lg font-semibold">{t("viewProjects")}</span>
           <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
         </Link>
       </div>
@@ -105,6 +107,7 @@ function ServiceStackCard({
 
 export function StackingServices({ services, locale }: StackingServicesProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const t = useTranslations("home.services");
 
   return (
     <section className="bg-gray-900">
@@ -112,10 +115,10 @@ export function StackingServices({ services, locale }: StackingServicesProps) {
         {/* Section Header */}
         <div className="text-center py-16">
           <p className="text-yellow-400 uppercase tracking-wider text-sm font-bold mb-2">
-            {locale === "tr" ? "HİZMETLERİMİZ" : "OUR SERVICES"}
+            {t("badge")}
           </p>
           <h2 className="text-3xl md:text-5xl font-bold text-white">
-            {locale === "tr" ? "Uzmanlık Alanlarımız" : "Our Expertise"}
+            {t("title")}
           </h2>
         </div>
 
@@ -142,7 +145,7 @@ export function StackingServices({ services, locale }: StackingServicesProps) {
             href="/services"
             className="inline-flex items-center gap-3 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold px-8 py-4 rounded-lg transition-colors"
           >
-            {locale === "tr" ? "Tüm Hizmetleri Gör" : "View All Services"}
+            {t("viewAll")}
             <ArrowRight className="w-5 h-5" />
           </Link>
         </div>

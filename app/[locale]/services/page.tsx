@@ -2,7 +2,9 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
+import type { ProjectCategory } from "@/lib/contentful";
 import { ServiceCard } from "@/components/services/service-card";
+import { ServicesGrid } from "@/components/services/services-grid";
 
 type Props = {
   params: Promise<{ locale: Locale }>;
@@ -25,22 +27,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-const servicesData = [
+const servicesData: Array<{
+  key: string;
+  image: string;
+  category: ProjectCategory;
+}> = [
   {
     key: "steelFactory",
     image: "/images/iston-fabrika.jpg",
+    category: "fabrika",
   },
   {
     key: "steelWarehouse",
     image: "/images/yapi.jpg",
+    category: "depo",
   },
   {
     key: "steelBridge",
     image: "/images/kopru.jpg",
+    category: "köprü",
   },
   {
     key: "restoration",
     image: "/images/msb.jpg",
+    category: "restorasyon",
   },
 ];
 
@@ -86,7 +96,7 @@ export default async function ServicesPage({ params }: Props) {
             </h2>
           </div>
 
-          <div className="space-y-0">
+          <ServicesGrid>
             {servicesData.map((service, index) => (
               <ServiceCard
                 key={service.key}
@@ -94,9 +104,10 @@ export default async function ServicesPage({ params }: Props) {
                 title={t(`items.${service.key}.title`)}
                 description={t(`items.${service.key}.description`)}
                 image={service.image}
+                category={service.category}
               />
             ))}
-          </div>
+          </ServicesGrid>
         </div>
       </section>
     </div>

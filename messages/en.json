@@ -3,8 +3,8 @@
     "home": "Home",
     "services": "Services",
     "projects": "Projects",
-    "about": "About Us",
     "contact": "Contact",
+    "about": "About Us",
     "readMore": "Read More",
     "viewProject": "View Project",
     "allProjects": "All Projects",
@@ -27,6 +27,12 @@
     "featured": {
       "title": "Featured Projects",
       "subtitle": "Take a look at our latest completed projects"
+    },
+    "services": {
+      "badge": "OUR SERVICES",
+      "title": "Our Expertise",
+      "viewProjects": "View Projects",
+      "viewAll": "View All Services"
     }
   },
   "services": {
@@ -92,6 +98,27 @@
       "content": "We are at your service with our experienced engineers and expert staff."
     }
   },
+  "contact": {
+    "form": {
+      "title": "Contact Form",
+      "subtitle": "Get in touch with us, we're happy to help you.",
+      "name": "Full Name",
+      "namePlaceholder": "Enter your name",
+      "email": "Email",
+      "emailPlaceholder": "Enter your email address",
+      "phone": "Phone",
+      "phonePlaceholder": "Enter your phone number",
+      "subject": "Subject",
+      "subjectPlaceholder": "Enter message subject",
+      "message": "Message",
+      "messagePlaceholder": "Write your message",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "successMessage": "Your message has been sent successfully! We will get back to you shortly.",
+      "errorMessage": "Failed to send message. Please try again later.",
+      "errorGeneric": "An error occurred. Please try again."
+    }
+  },
   "footer": {
     "description": "Quality and reliable construction solutions",
     "quickLinks": "Quick Links",
@@ -114,6 +141,10 @@
     "about": {
       "title": "About Us | Celikon Construction",
       "description": "Learn about Celikon Construction. Our vision, mission and values."
+    },
+    "contact": {
+      "title": "Contact | Celikon Construction",
+      "description": "Get in touch with Celikon Construction. Contact us for your projects."
     }
   }
 }

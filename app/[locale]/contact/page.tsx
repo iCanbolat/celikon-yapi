@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
-import { Award, Shield, Lightbulb, HardHat, Users } from "lucide-react";
 import { ContactForm } from "@/components/contact/contact-form";
 
 type Props = {
@@ -11,33 +10,26 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "seo.about" });
+  const t = await getTranslations({ locale, namespace: "seo.contact" });
 
   return {
     title: t("title"),
     description: t("description"),
     alternates: {
-      canonical: `/${locale}/about`,
+      canonical: `/${locale}/contact`,
       languages: {
-        tr: "/tr/about",
-        en: "/en/about",
+        tr: "/tr/contact",
+        en: "/en/contact",
       },
     },
   };
 }
 
-export default async function AboutPage({ params }: Props) {
+export default async function ContactPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("about");
-
-  const values = [
-    { key: "quality", icon: Award },
-    { key: "trust", icon: Shield },
-    { key: "innovation", icon: Lightbulb },
-    { key: "safety", icon: HardHat },
-  ] as const;
+  const t = await getTranslations("contact");
 
   return (
     <div>
@@ -46,7 +38,7 @@ export default async function AboutPage({ params }: Props) {
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/banner.webp"
-            alt={t("title")}
+            alt={t("form.title")}
             fill
             className="object-cover"
             priority
@@ -54,9 +46,11 @@ export default async function AboutPage({ params }: Props) {
           <div className="absolute inset-0 bg-black/50" />
         </div>
         <div className="container text-center relative z-10">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">{t("title")}</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            {locale === "tr" ? "İletişim" : "Contact Us"}
+          </h1>
           <p className="text-xl text-gray-200 max-w-2xl mx-auto">
-            {t("subtitle")}
+            {t("form.subtitle")}
           </p>
         </div>
       </section>

@@ -3,8 +3,8 @@
     "home": "Ana Sayfa",
     "services": "Hizmetler",
     "projects": "Projeler",
-    "about": "Hakkımızda",
     "contact": "İletişim",
+    "about": "Hakkımızda",
     "readMore": "Devamını Oku",
     "viewProject": "Projeyi Görüntüle",
     "allProjects": "Tüm Projeler",
@@ -27,6 +27,12 @@
     "featured": {
       "title": "Öne Çıkan Projeler",
       "subtitle": "Tamamladığımız en son projelerimize göz atın"
+    },
+    "services": {
+      "badge": "HİZMETLERİMİZ",
+      "title": "Uzmanlık Alanlarımız",
+      "viewProjects": "Projeleri Gör",
+      "viewAll": "Tüm Hizmetleri Gör"
     }
   },
   "services": {
@@ -92,6 +98,27 @@
       "content": "Deneyimli mühendisler ve uzman kadromuz ile hizmetinizdeyiz."
     }
   },
+  "contact": {
+    "form": {
+      "title": "İletişim Formu",
+      "subtitle": "Bize ulaşın, size yardımcı olmaktan mutluluk duyarız.",
+      "name": "Ad Soyad",
+      "namePlaceholder": "Adınızı girin",
+      "email": "E-posta",
+      "emailPlaceholder": "E-posta adresinizi girin",
+      "phone": "Telefon",
+      "phonePlaceholder": "Telefon numaranızı girin",
+      "subject": "Konu",
+      "subjectPlaceholder": "Mesaj konusunu girin",
+      "message": "Mesaj",
+      "messagePlaceholder": "Mesajınızı yazın",
+      "submit": "Mesaj Gönder",
+      "sending": "Gönderiliyor...",
+      "successMessage": "Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağız.",
+      "errorMessage": "Mesaj gönderilemedi. Lütfen daha sonra tekrar deneyin.",
+      "errorGeneric": "Bir hata oluştu. Lütfen tekrar deneyin."
+    }
+  },
   "footer": {
     "description": "Kaliteli ve güvenilir inşaat çözümleri",
     "quickLinks": "Hızlı Linkler",
@@ -114,6 +141,10 @@
     "about": {
       "title": "Hakkımızda | Celikon İnşaat",
       "description": "Celikon İnşaat hakkında bilgi edinin. Vizyonumuz, misyonumuz ve değerlerimiz."
+    },
+    "contact": {
+      "title": "İletişim | Celikon İnşaat",
+      "description": "Celikon İnşaat ile iletişime geçin. Projeleriniz için bize ulaşın."
     }
   }
 }

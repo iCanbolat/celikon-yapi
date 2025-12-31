@@ -41,9 +41,6 @@ export default async function HomePage({ params }: Props) {
   const t = await getTranslations();
   const featuredProjects = await getFeaturedProjects(locale, 6);
 
-  console.log(featuredProjects);
-  
-
   return (
     <div>
       {/* Hero Section with Video Background */}
@@ -160,24 +157,28 @@ export default async function HomePage({ params }: Props) {
             image: "/images/iston-fabrika.jpg",
             title: t("services.items.steelFactory.title"),
             description: t("services.items.steelFactory.description"),
+            category: "fabrika",
           },
           {
             key: "steelWarehouse",
             image: "/images/yapi.jpg",
             title: t("services.items.steelWarehouse.title"),
             description: t("services.items.steelWarehouse.description"),
+            category: "depo",
           },
           {
             key: "steelBridge",
             image: "/images/kopru.jpg",
             title: t("services.items.steelBridge.title"),
             description: t("services.items.steelBridge.description"),
+            category: "köprü",
           },
           {
             key: "restoration",
             image: "/images/msb.jpg",
             title: t("services.items.restoration.title"),
             description: t("services.items.restoration.description"),
+            category: "restorasyon",
           },
         ]}
         locale={locale}

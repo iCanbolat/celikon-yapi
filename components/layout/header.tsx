@@ -49,7 +49,7 @@ export function Header() {
     { href: "/", label: t("home") },
     { href: "/services", label: t("services") },
     { href: "/projects", label: t("projects") },
-    { href: "/about", label: t("about") },
+    { href: "/contact", label: t("contact") },
   ];
 
   const otherLocale = currentLocale === "tr" ? "en" : "tr";

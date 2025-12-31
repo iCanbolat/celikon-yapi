@@ -11,6 +11,8 @@
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^16.1.6",
     "@contentful/rich-text-types": "^17.2.5",
+    "@hookform/resolvers": "^5.2.2",
+    "@radix-ui/react-label": "^2.1.8",
     "@radix-ui/react-slot": "^1.2.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -22,8 +24,11 @@
     "next-intl": "^4.6.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "react-hook-form": "^7.69.0",
+    "resend": "^6.6.0",
     "swiper": "^11.2.10",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.4.0",
+    "zod": "^4.3.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

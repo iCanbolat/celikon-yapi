@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ProjectCard } from "./project-card";
 import { Button } from "@/components/ui/button";
@@ -14,11 +15,26 @@ interface ProjectsGridProps {
 
 export function ProjectsGrid({ projects }: ProjectsGridProps) {
   const t = useTranslations("projects");
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get("category") as ProjectCategory | null;
+
   const [activeCategory, setActiveCategory] = useState<ProjectCategory | "all">(
     "all"
   );
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
+
+  // Set initial category from URL
+  useEffect(() => {
+    if (
+      categoryParam &&
+      ["depo", "köprü", "fabrika", "restorasyon", "diğer"].includes(
+        categoryParam
+      )
+    ) {
+      setActiveCategory(categoryParam);
+    }
+  }, [categoryParam]);
 
   const categories: Array<{ key: ProjectCategory | "all"; label: string }> = [
     { key: "all", label: t("filters.all") },
@@ -138,7 +154,7 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
                     variant={currentPage === page ? "yellow" : "outline"}
                     size="icon"
                     onClick={() => goToPage(page)}
-                    className={`min-w-[2.5rem] ${
+                    className={`min-w-10 ${
                       currentPage === page ? "font-bold" : ""
                     }`}
                   >
