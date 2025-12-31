@@ -317,7 +317,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                           {t("details.category")}
                         </div>
                         <div className="font-medium text-gray-900">
-                          {project.category}
+                          {project.categoryLabel}
                         </div>
                       </div>
                     </div>

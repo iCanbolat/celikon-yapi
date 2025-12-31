@@ -9,15 +9,15 @@ export function Footer() {
   return (
     <footer className="bg-gray-900 text-white">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3  gap-8">
           {/* Company Info */}
-          <div>
+          <div className="flex flex-col items-center md:items-start">
             <h3 className="text-xl font-bold mb-4">CELİKON</h3>
             <p className="text-gray-400">{t("footer.description")}</p>
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <h4 className="text-lg font-semibold mb-4">
               {t("footer.quickLinks")}
             </h4>
@@ -58,7 +58,7 @@ export function Footer() {
           </div>
 
           {/* Contact */}
-          <div>
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <h4 className="text-lg font-semibold mb-4">
               {t("footer.contact")}
             </h4>
