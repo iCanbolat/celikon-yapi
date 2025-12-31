@@ -94,7 +94,7 @@ export function ServiceCard({
               {description}
             </p>
             <button
-              className="w-12 h-12 rounded-full bg-white border-2 border-gray-900 flex items-center justify-center hover:bg-gray-900 hover:text-white transition-all group flex-shrink-0"
+              className="w-12 h-12 rounded-full bg-white border-2 border-gray-900 flex items-center justify-center hover:bg-gray-900 hover:text-white transition-all group shrink-0"
               aria-label="Learn more"
             >
               <ArrowRight className="w-5 h-5" />

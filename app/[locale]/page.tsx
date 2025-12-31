@@ -11,6 +11,7 @@ import { SectionHeader } from "@/components/layout/section-header";
 import { FeaturedProjectsCarousel } from "@/components/home/featured-projects-carousel";
 import { TrustedPartners } from "@/components/home/trusted-partners";
 import { StatsCounter } from "@/components/home/stats-counter";
+import { StackingServices } from "@/components/home/stacking-services";
 
 type Props = {
   params: Promise<{ locale: Locale }>;
@@ -147,6 +148,37 @@ export default async function HomePage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      {/* Services Cards */}
+      <StackingServices
+        services={[
+          {
+            key: "steelFactory",
+            image: "/images/iston-fabrika.jpg",
+            title: t("services.items.steelFactory.title"),
+            description: t("services.items.steelFactory.description"),
+          },
+          {
+            key: "steelWarehouse",
+            image: "/images/yapi.jpg",
+            title: t("services.items.steelWarehouse.title"),
+            description: t("services.items.steelWarehouse.description"),
+          },
+          {
+            key: "steelBridge",
+            image: "/images/kopru.jpg",
+            title: t("services.items.steelBridge.title"),
+            description: t("services.items.steelBridge.description"),
+          },
+          {
+            key: "restoration",
+            image: "/images/msb.jpg",
+            title: t("services.items.restoration.title"),
+            description: t("services.items.restoration.description"),
+          },
+        ]}
+        locale={locale}
+      />
     </div>
   );
 }
