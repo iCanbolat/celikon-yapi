@@ -73,6 +73,49 @@ export interface ProjectSkeleton {
 }
 
 // Transformed types for easier usage
+export type ProjectCategory =
+  | "depo"
+  | "köprü"
+  | "fabrika"
+  | "restorasyon"
+  | "diğer";
+
+const CATEGORY_LABELS: Record<ProjectCategory, { tr: string; en: string }> = {
+  depo: { tr: "Depo", en: "Warehouse" },
+  köprü: { tr: "Köprü", en: "Bridge" },
+  fabrika: { tr: "Fabrika", en: "Factory" },
+  restorasyon: { tr: "Restorasyon", en: "Restoration" },
+  diğer: { tr: "Diğer", en: "Other" },
+};
+
+function normalizeCategory(raw: string | undefined): ProjectCategory {
+  const value = (raw || "").toLowerCase().trim();
+
+  switch (value) {
+    case "depo":
+      return "depo";
+    case "köprü":
+    case "kopru":
+      return "köprü";
+    case "fabrika":
+      return "fabrika";
+    case "restorasyon":
+    case "restoration":
+      return "restorasyon";
+    case "diğer":
+    case "diger":
+      return "diğer";
+    default:
+      return "diğer";
+  }
+}
+
+function getCategoryLabel(category: ProjectCategory, locale: Locale) {
+  return locale === "tr"
+    ? CATEGORY_LABELS[category].tr
+    : CATEGORY_LABELS[category].en;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -94,7 +137,8 @@ export interface Project {
   client: string;
   location: string;
   year: number;
-  category: string;
+  category: ProjectCategory;
+  categoryLabel: string;
   featured: boolean;
   seoTitle: string;
   seoDescription: string;
@@ -113,7 +157,9 @@ function transformAsset(asset: Asset | undefined): Project["featuredImage"] {
 }
 
 // Transform Contentful entry to Project
-function transformProject(entry: any): Project {
+function transformProject(entry: any, locale: Locale): Project {
+  const category = normalizeCategory(entry.fields.category);
+
   return {
     id: entry.sys.id,
     title: entry.fields.title || "",
@@ -127,7 +173,8 @@ function transformProject(entry: any): Project {
     client: entry.fields.client || "",
     location: entry.fields.location || "",
     year: entry.fields.year || new Date().getFullYear(),
-    category: entry.fields.category || "",
+    category,
+    categoryLabel: getCategoryLabel(category, locale),
     featured: entry.fields.featured || false,
     seoTitle: entry.fields.seoTitle || entry.fields.title || "",
     seoDescription:
@@ -155,7 +202,7 @@ export async function getProjects(
       include: 2,
     });
 
-    return entries.items.map(transformProject);
+    return entries.items.map((item) => transformProject(item, locale));
   } catch (error) {
     console.error("Error fetching projects:", error);
     return [];
@@ -185,7 +232,7 @@ export async function getFeaturedProjects(
       include: 2,
     });
 
-    return entries.items.map(transformProject);
+    return entries.items.map((item) => transformProject(item, locale));
   } catch (error) {
     console.error("Error fetching featured projects:", error);
     return [];
@@ -218,7 +265,7 @@ export async function getProjectBySlug(
       return null;
     }
 
-    return transformProject(entries.items[0]);
+    return transformProject(entries.items[0], locale);
   } catch (error) {
     console.error("Error fetching project:", error);
     return null;

@@ -45,10 +45,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
             </div>
           </div>
 
-          {project.category && (
+          {project.categoryLabel && (
             <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full bg-gray-900/90 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-white shadow-lg">
               <span className="block h-px w-4 bg-yellow-400" />
-              {project.category}
+              {project.categoryLabel}
             </span>
           )}
         </div>
@@ -68,7 +68,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           {project.shortDescription && (
             <div className="space-y-2">
               <div className="h-0.5 w-10 bg-yellow-400" />
-              <p className="text-sm leading-relaxed text-gray-600 line-clamp-3">
+              <p className="text-sm leading-relaxed text-gray-600 line-clamp-2">
                 {project.shortDescription}
               </p>
             </div>

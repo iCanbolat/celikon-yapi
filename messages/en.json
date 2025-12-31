@@ -55,6 +55,15 @@
     "title": "Our Projects",
     "subtitle": "Successfully completed projects",
     "noProjects": "No projects available yet.",
+    "noProjectsInCategory": "No projects found in this category.",
+    "filters": {
+      "all": "All",
+      "depo": "Warehouse",
+      "köprü": "Bridge",
+      "fabrika": "Factory",
+      "restorasyon": "Restoration",
+      "diğer": "Other"
+    },
     "details": {
       "client": "Client",
       "location": "Location",

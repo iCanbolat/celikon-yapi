@@ -3,8 +3,7 @@ import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { getProjects } from "@/lib/contentful";
-import { ProjectCard } from "@/components/projects/project-card";
-import { Building2 } from "lucide-react";
+import { ProjectsGrid } from "@/components/projects/projects-grid";
 
 type Props = {
   params: Promise<{ locale: Locale }>;
@@ -59,51 +58,7 @@ export default async function ProjectsPage({ params }: Props) {
       {/* Projects Grid */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          {projects.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {projects.map((project) => (
-                <ProjectCard key={project.id} project={project} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12">
-              <Building2 className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-              <p className="text-gray-600 text-lg">{t("noProjects")}</p>
-
-              {/* Placeholder projects for development */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-                {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <div
-                    key={i}
-                    className="bg-white rounded-lg shadow-md overflow-hidden"
-                  >
-                    <div className="h-48 bg-gray-200 flex items-center justify-center">
-                      <Building2 className="w-16 h-16 text-gray-400" />
-                    </div>
-                    <div className="p-6">
-                      <span className="text-xs font-medium text-blue-600 uppercase tracking-wider">
-                        {locale === "tr" ? "Kategori" : "Category"}
-                      </span>
-                      <h3 className="text-lg font-semibold text-gray-900 mt-2 mb-2">
-                        {locale === "tr"
-                          ? `Örnek Proje ${i}`
-                          : `Sample Project ${i}`}
-                      </h3>
-                      <p className="text-gray-600 text-sm mb-4">
-                        {locale === "tr"
-                          ? "Bu alan Contentful'dan proje verileri geldiğinde doldurulacaktır."
-                          : "This area will be filled when project data comes from Contentful."}
-                      </p>
-                      <div className="flex items-center justify-between text-sm text-gray-500">
-                        <span>{locale === "tr" ? "İstanbul" : "Istanbul"}</span>
-                        <span>2024</span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+          <ProjectsGrid projects={projects} />
         </div>
       </section>
     </div>

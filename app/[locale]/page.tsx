@@ -41,6 +41,9 @@ export default async function HomePage({ params }: Props) {
   const t = await getTranslations();
   const featuredProjects = await getFeaturedProjects(locale, 6);
 
+  console.log(featuredProjects);
+  
+
   return (
     <div>
       {/* Hero Section with Video Background */}

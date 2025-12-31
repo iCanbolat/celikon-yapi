@@ -55,6 +55,15 @@
     "title": "Projelerimiz",
     "subtitle": "Başarıyla tamamladığımız projeler",
     "noProjects": "Henüz proje bulunmamaktadır.",
+    "noProjectsInCategory": "Bu kategoride proje bulunmamaktadır.",
+    "filters": {
+      "all": "Tümü",
+      "depo": "Depo",
+      "köprü": "Köprü",
+      "fabrika": "Fabrika",
+      "restorasyon": "Restorasyon",
+      "diğer": "Diğer"
+    },
     "details": {
       "client": "Müşteri",
       "location": "Konum",
