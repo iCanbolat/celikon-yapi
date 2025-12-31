@@ -10,6 +10,7 @@ import { HeroSection } from "@/components/home/hero-section";
 import { SectionHeader } from "@/components/layout/section-header";
 import { FeaturedProjectsCarousel } from "@/components/home/featured-projects-carousel";
 import { TrustedPartners } from "@/components/home/trusted-partners";
+import { StatsCounter } from "@/components/home/stats-counter";
 
 type Props = {
   params: Promise<{ locale: Locale }>;
@@ -60,30 +61,34 @@ export default async function HomePage({ params }: Props) {
           />
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <Building2 className="w-12 h-12 mx-auto mb-4 text-blue-600" />
-              <div className="text-3xl font-bold text-gray-900">150+</div>
-              <div className="text-gray-600">{t("common.projects")}</div>
-            </div>
-            <div className="text-center">
-              <Users className="w-12 h-12 mx-auto mb-4 text-blue-600" />
-              <div className="text-3xl font-bold text-gray-900">50+</div>
-              <div className="text-gray-600">
-                {locale === "tr" ? "Uzman Kadro" : "Expert Team"}
-              </div>
-            </div>
-            <div className="text-center">
-              <HardHat className="w-12 h-12 mx-auto mb-4 text-blue-600" />
-              <div className="text-3xl font-bold text-gray-900">25+</div>
-              <div className="text-gray-600">
-                {locale === "tr" ? "Yıl Deneyim" : "Years Experience"}
-              </div>
-            </div>
-            <div className="text-center">
-              <Ruler className="w-12 h-12 mx-auto mb-4 text-blue-600" />
-              <div className="text-3xl font-bold text-gray-900">500K</div>
-              <div className="text-gray-600">m²</div>
-            </div>
+            <StatsCounter
+              icon={
+                <Building2 className="w-12 h-12 mx-auto mb-4 text-blue-600" />
+              }
+              value={150}
+              label={t("common.projects")}
+              suffix="+"
+            />
+            <StatsCounter
+              icon={<Users className="w-12 h-12 mx-auto mb-4 text-blue-600" />}
+              value={50}
+              label={locale === "tr" ? "Uzman Kadro" : "Expert Team"}
+              suffix="+"
+            />
+            <StatsCounter
+              icon={
+                <HardHat className="w-12 h-12 mx-auto mb-4 text-blue-600" />
+              }
+              value={25}
+              label={locale === "tr" ? "Yıl Deneyim" : "Years Experience"}
+              suffix="+"
+            />
+            <StatsCounter
+              icon={<Ruler className="w-12 h-12 mx-auto mb-4 text-blue-600" />}
+              value={500}
+              label="m²"
+              suffix="K"
+            />
           </div>
         </div>
       </section>

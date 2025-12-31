@@ -56,16 +56,10 @@ export function TrustedPartners({ locale }: TrustedPartnersProps) {
   return (
     <section className="py-16 bg-white overflow-hidden">
       <div className="container mx-auto px-4">
-        {/* <h2 className="text-2xl md:text-4xl font-bold text-gray-900 text-center mb-8">
-          {locale === "tr"
-            ? "Güvenilir İş Ortaklarımız"
-            : "Our Trusted Partners"}
-        </h2> */}
-
         <div className="relative">
           {/* Gradient overlays */}
-          {/* <div className="absolute left-0 top-0 bottom-0 w-32 bg-linear-to-r from-gray-900 to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-linear-to-l from-gray-900 to-transparent z-10 pointer-events-none" /> */}
+          <div className="absolute left-0 top-0 bottom-0 w-32 bg-linear-to-r from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-32 bg-linear-to-l from-white to-transparent z-10 pointer-events-none" />
 
           {/* Scrolling container */}
           <div className="overflow-hidden">

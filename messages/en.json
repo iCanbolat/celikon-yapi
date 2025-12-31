@@ -33,21 +33,21 @@
     "title": "Our Services",
     "subtitle": "We provide comprehensive construction solutions",
     "items": {
-      "construction": {
-        "title": "General Construction",
-        "description": "Construction of residential, commercial and industrial buildings"
+      "steelFactory": {
+        "title": "Steel Construction Factory",
+        "description": "From the first idea to the master plan, we shape layouts that balance innovation."
       },
-      "renovation": {
-        "title": "Renovation",
-        "description": "Modernization and renewal of existing structures"
+      "steelWarehouse": {
+        "title": "Steel Construction Warehouse",
+        "description": "Interiors designed to reflect personality and purpose – combining comfort and elegance."
       },
-      "consulting": {
-        "title": "Consulting",
-        "description": "Professional construction consulting services"
+      "steelBridge": {
+        "title": "Steel Construction Bridge",
+        "description": "We realize durable and aesthetic bridge projects with modern engineering solutions."
       },
-      "projectManagement": {
-        "title": "Project Management",
-        "description": "End-to-end project management and coordination"
+      "restoration": {
+        "title": "Restoration",
+        "description": "We offer restoration services that preserve the authenticity of historical buildings while meeting modern standards."
       }
     }
   },

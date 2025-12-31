@@ -33,21 +33,21 @@
     "title": "Hizmetlerimiz",
     "subtitle": "Kapsamlı inşaat çözümleri sunuyoruz",
     "items": {
-      "construction": {
-        "title": "Genel İnşaat",
-        "description": "Konut, ticari ve endüstriyel yapıların inşaatı"
+      "steelFactory": {
+        "title": "Çelik Konstrüksiyon Fabrika",
+        "description": "İlk fikirden ana plana kadar, inovasyonu dengeleyen düzenler şekillendiriyoruz."
       },
-      "renovation": {
-        "title": "Renovasyon",
-        "description": "Mevcut yapıların modernizasyonu ve yenilenmesi"
+      "steelWarehouse": {
+        "title": "Çelik Konstrüksiyon Depo",
+        "description": "Kişiliği ve amacı yansıtan iç mekanlar tasarlıyoruz - konfor ve zarafeti birleştirerek."
       },
-      "consulting": {
-        "title": "Danışmanlık",
-        "description": "Profesyonel inşaat danışmanlığı hizmetleri"
+      "steelBridge": {
+        "title": "Çelik Konstrüksiyon Köprü",
+        "description": "Modern mühendislik çözümleri ile dayanıklı ve estetik köprü projeleri gerçekleştiriyoruz."
       },
-      "projectManagement": {
-        "title": "Proje Yönetimi",
-        "description": "Baştan sona proje yönetimi ve koordinasyonu"
+      "restoration": {
+        "title": "Restorasyon",
+        "description": "Tarihi yapıların özgünlüğünü koruyarak modern standartlara uygun restorasyon hizmetleri sunuyoruz."
       }
     }
   },

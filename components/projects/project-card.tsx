@@ -14,7 +14,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       className="group block h-full"
       aria-label={project.title}
     >
-      <article className="flex h-145 flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+      <article className="flex h-130 flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
         <div className="relative">
           <div className="relative h-64 overflow-hidden">
             {project.featuredImage ? (

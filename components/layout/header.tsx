@@ -65,7 +65,7 @@ export function Header() {
 
   return (
     <motion.header
-      className={`sticky top-0 z-[100]  ${bgClass}`}
+      className={`sticky top-0 z-100  ${bgClass}`}
       initial={{ y: -40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ type: "spring", stiffness: 120, damping: 16 }}
@@ -97,14 +97,14 @@ export function Header() {
             <Link
               href={pathname}
               locale={otherLocale}
-              className="flex items-center gap-1 text-sm font-semibold text-white hover:text-yellow-400 transition-colors relative z-[101]"
+              className="flex items-center gap-1 text-sm font-semibold text-white hover:text-yellow-400 transition-colors relative z-101"
             >
               <Globe className="w-4 h-4" />
               {otherLocale.toUpperCase()}
             </Link>
 
             <button
-              className="md:hidden p-2 relative z-[101] text-white"
+              className="md:hidden p-2 relative z-101 text-white"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? (
@@ -134,7 +134,7 @@ export function Header() {
                     damping: 20,
                     duration: 0.6,
                   }}
-                  className="md:hidden fixed inset-0 bg-linear-to-br from-black via-neutral-900 to-black z-[90]"
+                  className="md:hidden fixed inset-0 bg-linear-to-br from-black via-neutral-900 to-black z-90"
                 />
 
                 {/* Menu Content */}
@@ -143,7 +143,7 @@ export function Header() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ delay: 0.25, duration: 0.3 }}
-                  className="md:hidden fixed inset-0 z-[91] flex items-center justify-center"
+                  className="md:hidden fixed inset-0 z-91 flex items-center justify-center"
                 >
                   <div className="flex flex-col items-center gap-8">
                     {navItems.map((item, index) => (

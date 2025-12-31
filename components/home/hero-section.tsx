@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
@@ -35,9 +36,15 @@ export function HeroSection({ locale }: HeroSectionProps) {
             <source src={videoSrc} type="video/mp4" />
           </video>
         )}
-        {/* Fallback gradient if video missing or errors */}
+        {/* Fallback image if video missing or errors */}
         {videoError && (
-          <div className="w-full h-full bg-linear-to-br from-gray-900 via-slate-800 to-gray-900" />
+          <Image
+            src="/images/banner.webp"
+            alt="Hero Background"
+            fill
+            className="object-cover"
+            priority
+          />
         )}
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-linear-to-br from-gray-900/60 via-gray-900/50 to-gray-900/40" />

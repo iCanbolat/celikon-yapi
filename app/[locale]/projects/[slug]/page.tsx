@@ -75,8 +75,18 @@ export default async function ProjectDetailPage({ params }: Props) {
     // Show placeholder for development
     return (
       <div>
-        <section className="bg-linear-to-br from-gray-900 to-gray-800 text-white py-20">
-          <div className="container mx-auto px-4">
+        <section className="relative flex flex-col justify-center -mt-16 h-96 text-white py-20 overflow-hidden">
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/images/banner.webp"
+              alt="Project Detail"
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-black/50" />
+          </div>
+          <div className="container mx-auto px-4 relative z-10">
             <Link
               href="/projects"
               className="inline-flex items-center gap-2 text-gray-300 hover:text-white mb-6 transition-colors"
@@ -167,8 +177,18 @@ export default async function ProjectDetailPage({ params }: Props) {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-linear-to-br from-gray-900 to-gray-800 text-white py-20">
-        <div className="container mx-auto px-4">
+      <section className="relative flex flex-col justify-center -mt-16 h-96 text-white py-20 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/banner.webp"
+            alt={project.title}
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/50" />
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
           <Link
             href="/projects"
             className="inline-flex items-center gap-2 text-gray-300 hover:text-white mb-6 transition-colors"
@@ -178,7 +198,7 @@ export default async function ProjectDetailPage({ params }: Props) {
           </Link>
           <h1 className="text-4xl md:text-5xl font-bold">{project.title}</h1>
           {project.shortDescription && (
-            <p className="text-xl text-gray-300 mt-4 max-w-2xl">
+            <p className="text-xl text-gray-200 mt-4 max-w-2xl">
               {project.shortDescription}
             </p>
           )}
