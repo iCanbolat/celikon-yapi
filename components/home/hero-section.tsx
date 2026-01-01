@@ -19,7 +19,7 @@ export function HeroSection({ locale }: HeroSectionProps) {
   const videoSrc = "/videos/hero-background.webm";
 
   return (
-    <section className="relative  min-h-screen -top-16 pt-16 pb-4 sm:pt-0 sm:pb-0 flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen -top-16 pt-16 pb-4 sm:pt-0 sm:pb-0 flex items-center justify-center overflow-hidden">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         {!videoError && (
@@ -50,14 +50,14 @@ export function HeroSection({ locale }: HeroSectionProps) {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 z-10 relative">
+      <div className="container mx-auto px-1 z-10 relative">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
           <div
             className="inline-block mb-6 animate-fade-in-up"
             style={{ animationDelay: "0.2s" }}
           >
-            <span className="bg-yellow-400 text-gray-900 px-2 sm:px-6 py-2 text-xs md:text-sm font-bold uppercase tracking-wider">
+            <span className="bg-yellow-400 text-gray-900 px-6 py-2 text-xs md:text-sm font-bold uppercase tracking-wider">
               {t("home.hero.badge")}
             </span>
           </div>
@@ -85,7 +85,7 @@ export function HeroSection({ locale }: HeroSectionProps) {
 
           {/* Description */}
           <p
-            className="text-base md:text-lg lg:text-xl text-gray-200 mb-6 sm:mb-10 max-w-3xl mx-auto leading-relaxed animate-fade-in-up"
+            className="text-base md:text-lg lg:text-xl text-gray-200 mb-6 sm:mb-10 max-w-sm md:max-w-xl lg:max-w-3xl mx-auto leading-relaxed animate-fade-in-up"
             style={{ animationDelay: "0.6s" }}
           >
             {t("home.hero.description")}

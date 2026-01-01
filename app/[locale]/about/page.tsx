@@ -2,8 +2,9 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
-import { Award, Shield, Lightbulb, HardHat, Users } from "lucide-react";
 import { ContactForm } from "@/components/contact/contact-form";
+import { SectionHeader } from "@/components/layout/section-header";
+import { CertificateCard } from "@/components/about/certificate-card";
 
 type Props = {
   params: Promise<{ locale: Locale }>;
@@ -36,13 +37,6 @@ export default async function AboutPage({ params }: Props) {
 
   const t = await getTranslations("about");
 
-  const values = [
-    { key: "quality", icon: Award },
-    { key: "trust", icon: Shield },
-    { key: "innovation", icon: Lightbulb },
-    { key: "safety", icon: HardHat },
-  ] as const;
-
   return (
     <div>
       {/* Hero Section */}
@@ -62,6 +56,34 @@ export default async function AboutPage({ params }: Props) {
           <p className="text-xl text-gray-200 max-w-2xl mx-auto">
             {t("subtitle")}
           </p>
+        </div>
+      </section>
+
+      {/* About Content Section */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <SectionHeader
+            badge={t("badge")}
+            title={t("whoWeAre")}
+            description={t("description")}
+            align="center"
+          />
+
+          {/* Certificates */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+            <CertificateCard
+              src="/images/belge1.jpg"
+              alt="EPDK Certification"
+            />
+            <CertificateCard
+              src="/images/belge2.png"
+              alt="Insperla Certification"
+            />
+            <CertificateCard
+              src="/images/belge3.png"
+              alt="HenKa Certification"
+            />
+          </div>
         </div>
       </section>
 

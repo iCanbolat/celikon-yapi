@@ -11,7 +11,10 @@
     "backToProjects": "Back to Projects",
     "loading": "Loading...",
     "error": "An error occurred",
-    "notFound": "Page not found"
+    "notFound": "Page not found",
+    "notFoundDescription": "The page you are looking for could not be found. It may have been moved or deleted.",
+    "backToHome": "Back to Home",
+    "goBack": "Go Back"
   },
   "home": {
     "hero": {
@@ -82,6 +85,9 @@
   "about": {
     "title": "About Us",
     "subtitle": "At Celikon Construction, we combine quality and trust",
+    "badge": "ABOUT US",
+    "whoWeAre": "Who We Are?",
+    "description": "As Celikon Construction, we are a pioneer in the steel construction sector with years of experience. With our quality, reliability and customer satisfaction-oriented working principle, we have signed many successful projects. We are a reliable business partner in the sector with our certificates and references.",
     "story": {
       "title": "Our Story",
       "content": "We are a pioneer in the sector with years of experience. With our customer satisfaction-oriented working principle, we have signed many successful projects."

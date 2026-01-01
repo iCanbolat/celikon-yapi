@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import type { ProjectCategory } from "@/lib/contentful";
 import { useTranslations } from "next-intl";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 interface ServiceData {
   key: string;
@@ -101,6 +102,15 @@ export function StackingServices({ services, locale }: StackingServicesProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const t = useTranslations("home.services");
 
+  // Zoom-out effect near the end of the stack while scrolling
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const scale = useTransform(scrollYProgress, [0, 0.7, 1], [1, 1, 0.9]);
+  const opacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 1, 0.92]);
+
   return (
     <section className="bg-gray-900">
       <div className="container mx-auto px-4">
@@ -115,10 +125,10 @@ export function StackingServices({ services, locale }: StackingServicesProps) {
         </div>
 
         {/* Stacking Cards Container */}
-        <div
+        <motion.div
           ref={containerRef}
-          style={{ height: `${services.length * 100}vh` }}
-          className="relative"
+          style={{ height: `${services.length * 100}vh`, scale, opacity }}
+          className="relative will-change-transform"
         >
           {services.map((service, index) => (
             <ServiceStackCard
@@ -128,7 +138,7 @@ export function StackingServices({ services, locale }: StackingServicesProps) {
               totalCards={services.length}
             />
           ))}
-        </div>
+        </motion.div>
 
         {/* CTA */}
         <div className="text-center py-16">

@@ -11,15 +11,18 @@
     "backToProjects": "Projelere Dön",
     "loading": "Yükleniyor...",
     "error": "Bir hata oluştu",
-    "notFound": "Sayfa bulunamadı"
+    "notFound": "Sayfa bulunamadı",
+    "notFoundDescription": "Aradığınız sayfa bulunamadı. Sayfa taşınmış veya silinmiş olabilir.",
+    "backToHome": "Ana Sayfaya Dön",
+    "goBack": "Geri Dön"
   },
   "home": {
     "hero": {
       "title": "Kaliteli İnşaat Çözümleri",
       "subtitle": "Güvenilir ve profesyonel inşaat hizmetleri ile hayalinizdeki yapıları inşa ediyoruz.",
       "cta": "Projelerimizi Keşfedin",
-      "badge": "Dürüstlük ve Mükemmellikle İnşa Etmek",
-      "heading": "İSTİSNAİ USTALIK İLE GÜVENİ İNŞA ETMEK",
+      "badge": "Dürüstlük ve Mükemmellikle İnşa Ediyoruz",
+      "heading": "İSTİSNAİ USTALIK İLE GÜVENİ İNŞA EDİYORUZ",
       "description": "İlk 25 müteahhit ve geliştirici arasında yer alarak müşteri başarısını artırmaya, büyümeyi teşvik etmeye ve inşa ettiğimiz toplulukları güçlendirmeye kendimizi adadık.",
       "buttonServices": "TÜM HİZMETLERİ GÖR",
       "buttonContact": "İLETİŞİME GEÇ"
@@ -82,6 +85,9 @@
   "about": {
     "title": "Hakkımızda",
     "subtitle": "Celikon İnşaat olarak kalite ve güveni bir arada sunuyoruz",
+    "badge": "HAKKIMIZDA",
+    "whoWeAre": "Biz Kimiz?",
+    "description": "Celikon İnşaat olarak yılların deneyimi ile çelik konstrüksiyon sektöründe öncü konumdayız. Kalite, güvenilirlik ve müşteri memnuniyeti odaklı çalışma prensibimiz ile birçok başarılı projeye imza attık. Sertifikalarımız ve referanslarımız ile sektörde güvenilir bir iş ortağıyız.",
     "story": {
       "title": "Hikayemiz",
       "content": "Yılların deneyimi ile sektörde öncü konumdayız. Müşteri memnuniyeti odaklı çalışma prensibimiz ile birçok başarılı projeye imza attık."
