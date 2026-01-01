@@ -13,9 +13,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "seo.about" });
 
+  const SITE_URL =
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://celikon-yapi.vercel.app";
+
   return {
     title: t("title"),
     description: t("description"),
+    metadataBase: new URL(SITE_URL),
     alternates: {
       canonical: `/${locale}/about`,
       languages: {

@@ -1,8 +1,7 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import type { ProjectCategory } from "@/lib/contentful";
@@ -25,49 +24,42 @@ function ServiceStackCard({
   service,
   index,
   totalCards,
-  containerRef,
 }: {
   service: ServiceData;
   index: number;
   totalCards: number;
-  containerRef: React.RefObject<HTMLDivElement | null>;
 }) {
   const t = useTranslations("home.services");
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
-  // Calculate scroll progress range for this card
-  const cardStart = index / totalCards;
-  const cardEnd = (index + 1) / totalCards;
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.3 }
+    );
 
-  const isLastCard = index === totalCards - 1;
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
 
-  // Scale animation - card shrinks when next card comes
-  const scale = useTransform(scrollYProgress, [cardStart, cardEnd], [1, 0.9]);
+    return () => observer.disconnect();
+  }, []);
 
-  // Opacity - card fades when next card comes, but disappears completely after
-  const opacity = useTransform(
-    scrollYProgress,
-    isLastCard
-      ? [cardStart, 1]
-      : [cardStart, cardEnd - 0.05, cardEnd, cardEnd + 0.05],
-    isLastCard ? [1, 1] : [1, 1, 0.4, 0]
-  );
-
-  // Y offset - each card has a small offset from top based on index
-  const topOffset = 96 + index * 20; // 96px = top-24, plus 20px per card for stacking effect
+  const topOffset = 96 + index * 20;
 
   return (
-    <motion.div
+    <div
+      ref={cardRef}
       style={{
-        scale,
-        opacity,
-        zIndex: index + 1, // Later cards have higher z-index so they appear on top
+        zIndex: index + 1,
         top: topOffset,
       }}
-      className="sticky h-[70vh] min-h-125 rounded-3xl overflow-hidden shadow-2xl"
+      className={`sticky h-[70vh] min-h-125 rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 ${
+        isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
+      }`}
     >
       {/* Background Image */}
       <div className="absolute inset-0">
@@ -101,7 +93,7 @@ function ServiceStackCard({
           <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
         </Link>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -134,7 +126,6 @@ export function StackingServices({ services, locale }: StackingServicesProps) {
               service={service}
               index={index}
               totalCards={services.length}
-              containerRef={containerRef}
             />
           ))}
         </div>

@@ -20,6 +20,7 @@ export function FeaturedProjectsCarousel({
   const prevRef = useRef<HTMLButtonElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);
   const [SwiperComponents, setSwiperComponents] = useState<any>(null);
+  const [swiperInstance, setSwiperInstance] = useState<any>(null);
 
   useEffect(() => {
     // Dynamically load Swiper
@@ -36,6 +37,16 @@ export function FeaturedProjectsCarousel({
     };
     loadSwiper();
   }, []);
+
+  useEffect(() => {
+    if (swiperInstance && prevRef.current && nextRef.current) {
+      // Update navigation after swiper is initialized
+      swiperInstance.params.navigation.prevEl = prevRef.current;
+      swiperInstance.params.navigation.nextEl = nextRef.current;
+      swiperInstance.navigation.init();
+      swiperInstance.navigation.update();
+    }
+  }, [swiperInstance]);
 
   if (!SwiperComponents) {
     return (
@@ -74,13 +85,10 @@ export function FeaturedProjectsCarousel({
 
       <Swiper
         modules={[Navigation]}
-        navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
-        onBeforeInit={(swiper: any) => {
-          swiper.params.navigation = {
-            ...(swiper.params.navigation as object),
-            prevEl: prevRef.current,
-            nextEl: nextRef.current,
-          };
+        onSwiper={setSwiperInstance}
+        navigation={{
+          prevEl: prevRef.current,
+          nextEl: nextRef.current,
         }}
         grabCursor
         observer

@@ -8,10 +8,37 @@ import { Building2, HardHat, Ruler, Users, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HeroSection } from "@/components/home/hero-section";
 import { SectionHeader } from "@/components/layout/section-header";
-import { FeaturedProjectsCarousel } from "@/components/home/featured-projects-carousel";
-import { TrustedPartners } from "@/components/home/trusted-partners";
-import { StatsCounter } from "@/components/home/stats-counter";
-import { StackingServices } from "@/components/home/stacking-services";
+import dynamic from "next/dynamic";
+
+// Lazy load below-the-fold components
+const FeaturedProjectsCarousel = dynamic(
+  () =>
+    import("@/components/home/featured-projects-carousel").then((mod) => ({
+      default: mod.FeaturedProjectsCarousel,
+    })),
+  { loading: () => <div className="h-96" /> }
+);
+const TrustedPartners = dynamic(
+  () =>
+    import("@/components/home/trusted-partners").then((mod) => ({
+      default: mod.TrustedPartners,
+    })),
+  { loading: () => <div className="h-64" /> }
+);
+const StatsCounter = dynamic(
+  () =>
+    import("@/components/home/stats-counter").then((mod) => ({
+      default: mod.StatsCounter,
+    })),
+  { loading: () => <div className="h-32" /> }
+);
+const StackingServices = dynamic(
+  () =>
+    import("@/components/home/stacking-services").then((mod) => ({
+      default: mod.StackingServices,
+    })),
+  { loading: () => <div className="h-screen" /> }
+);
 
 type Props = {
   params: Promise<{ locale: Locale }>;
@@ -21,9 +48,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "seo.home" });
 
+  const SITE_URL =
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://celikon-yapi.vercel.app";
+
   return {
     title: t("title"),
     description: t("description"),
+    metadataBase: new URL(SITE_URL),
     alternates: {
       canonical: `/${locale}`,
       languages: {

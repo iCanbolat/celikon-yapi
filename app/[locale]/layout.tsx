@@ -8,6 +8,7 @@ import "../globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { LenisProvider } from "@/components/providers/lenis-provider";
+import { ScrollToTop } from "@/components/layout/scroll-to-top";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://celikon-yapi.vercel.app";
@@ -93,6 +94,7 @@ export default async function LocaleLayout({
       >
         <NextIntlClientProvider messages={messages}>
           <LenisProvider>
+            <ScrollToTop />
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />

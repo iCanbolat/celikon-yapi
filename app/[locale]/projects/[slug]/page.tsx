@@ -43,9 +43,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  const SITE_URL =
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://celikon-yapi.vercel.app";
+
   return {
     title: project.seoTitle,
     description: project.seoDescription,
+    metadataBase: new URL(SITE_URL),
     openGraph: {
       title: project.seoTitle,
       description: project.seoDescription,

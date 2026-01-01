@@ -12,9 +12,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "seo.contact" });
 
+  const SITE_URL =
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://celikon-yapi.vercel.app";
+
   return {
     title: t("title"),
     description: t("description"),
+    metadataBase: new URL(SITE_URL),
     alternates: {
       canonical: `/${locale}/contact`,
       languages: {
@@ -42,6 +46,7 @@ export default async function ContactPage({ params }: Props) {
             fill
             className="object-cover"
             priority
+            fetchPriority="high"
           />
           <div className="absolute inset-0 bg-black/50" />
         </div>

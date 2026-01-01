@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView, useSpring } from "framer-motion";
 import { ReactNode } from "react";
 
 interface StatsCounterProps {
@@ -18,36 +17,59 @@ export function StatsCounter({
   suffix = "",
 }: StatsCounterProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const spring = useSpring(0, { duration: 2000 });
   const [displayValue, setDisplayValue] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (isInView) {
-      spring.set(value);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1, rootMargin: "-100px" }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
     }
-  }, [isInView, value, spring]);
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
-    const unsubscribe = spring.on("change", (latest) => {
-      setDisplayValue(Math.floor(latest));
-    });
+    if (!isVisible) return;
 
-    return () => unsubscribe();
-  }, [spring]);
+    const duration = 2000;
+    const steps = 60;
+    const increment = value / steps;
+    const stepDuration = duration / steps;
+    let current = 0;
+
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= value) {
+        setDisplayValue(value);
+        clearInterval(timer);
+      } else {
+        setDisplayValue(Math.floor(current));
+      }
+    }, stepDuration);
+
+    return () => clearInterval(timer);
+  }, [isVisible, value]);
 
   return (
     <div ref={ref} className="text-center">
       {icon}
-      <motion.div
-        className="text-3xl font-bold text-gray-900 my-4"
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-        transition={{ duration: 0.5 }}
+      <div
+        className={`text-3xl font-bold text-gray-900 my-4 transition-all duration-500 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+        }`}
       >
         {displayValue}
         {suffix}
-      </motion.div>
+      </div>
       <div className="text-gray-600">{label}</div>
     </div>
   );
