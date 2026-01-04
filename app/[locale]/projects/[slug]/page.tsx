@@ -6,6 +6,7 @@ import type { Locale } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
 import { getProjectBySlug, getProjects } from "@/lib/contentful";
 import { RichTextRenderer } from "@/components/rich-text-renderer";
+import { ImageWithSkeleton } from "@/components/ui/image-with-skeleton";
 import {
   ArrowLeft,
   MapPin,
@@ -65,8 +66,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export const revalidate = 3600; // Revalidate every hour
-
 export default async function ProjectDetailPage({ params }: Props) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
@@ -121,11 +120,10 @@ export default async function ProjectDetailPage({ params }: Props) {
               {/* Featured Image */}
               {project.featuredImage ? (
                 <div className="relative h-96 rounded-xl overflow-hidden mb-8">
-                  <Image
+                  <ImageWithSkeleton
                     src={project.featuredImage.url}
                     alt={project.featuredImage.title || project.title}
-                    fill
-                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 75vw"
                     priority
                   />
                 </div>
@@ -157,11 +155,11 @@ export default async function ProjectDetailPage({ params }: Props) {
                         key={index}
                         className="relative h-48 rounded-lg overflow-hidden"
                       >
-                        <Image
+                        <ImageWithSkeleton
                           src={image.url}
                           alt={image.title || `${project.title} - ${index + 1}`}
-                          fill
-                          className="object-cover hover:scale-105 transition-transform duration-300"
+                          sizes="(max-width: 768px) 50vw, 33vw"
+                          className="hover:scale-105 transition-transform duration-300"
                         />
                       </div>
                     ))}

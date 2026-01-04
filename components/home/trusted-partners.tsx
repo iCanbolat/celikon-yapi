@@ -16,6 +16,7 @@ const partners = [
   { name: "TCDD", logo: "/logos/tcdd-logo.png" },
   { name: "TEİAŞ", logo: "/logos/teias-logo.png" },
   { name: "TFF", logo: "/logos/tff-logo.png" },
+  { name: "THY", logo: "/logos/thy.png" },
   { name: "TÜBİTAK", logo: "/logos/tubitak-logo.png" },
 ];
 

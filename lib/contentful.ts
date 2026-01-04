@@ -1,4 +1,5 @@
 import { createClient, type EntryFieldTypes, type Asset } from "contentful";
+import { unstable_cache as cache } from "next/cache";
 import type { Locale } from "@/i18n/routing";
 
 const hasDeliveryCreds = Boolean(
@@ -183,30 +184,38 @@ function transformProject(entry: any, locale: Locale): Project {
 }
 
 // Fetch all projects
+const getProjectsCached = cache(
+  async (locale: Locale, preview = false): Promise<Project[]> => {
+    const contentfulLocale = locale === "tr" ? "tr-TR" : "en-US";
+
+    try {
+      if (!hasDeliveryCreds) {
+        warnMissingCreds();
+        return [];
+      }
+
+      const entries = await getClient(preview).getEntries<ProjectSkeleton>({
+        content_type: "project",
+        locale: contentfulLocale,
+        order: ["-fields.year"],
+        include: 2,
+      });
+
+      return entries.items.map((item) => transformProject(item, locale));
+    } catch (error) {
+      console.error("Error fetching projects:", error);
+      return [];
+    }
+  },
+  ["projects"],
+  { tags: ["projects"] }
+);
+
 export async function getProjects(
   locale: Locale,
   preview = false
 ): Promise<Project[]> {
-  const contentfulLocale = locale === "tr" ? "tr-TR" : "en-US";
-
-  try {
-    if (!hasDeliveryCreds) {
-      warnMissingCreds();
-      return [];
-    }
-
-    const entries = await getClient(preview).getEntries<ProjectSkeleton>({
-      content_type: "project",
-      locale: contentfulLocale,
-      order: ["-fields.year"],
-      include: 2,
-    });
-
-    return entries.items.map((item) => transformProject(item, locale));
-  } catch (error) {
-    console.error("Error fetching projects:", error);
-    return [];
-  }
+  return getProjectsCached(locale, preview);
 }
 
 // Fetch featured projects
@@ -240,36 +249,48 @@ export async function getFeaturedProjects(
 }
 
 // Fetch single project by slug
+const getProjectBySlugCached = cache(
+  async (
+    slug: string,
+    locale: Locale,
+    preview = false
+  ): Promise<Project | null> => {
+    const contentfulLocale = locale === "tr" ? "tr-TR" : "en-US";
+
+    try {
+      if (!hasDeliveryCreds) {
+        warnMissingCreds();
+        return null;
+      }
+
+      const entries = await getClient(preview).getEntries<ProjectSkeleton>({
+        content_type: "project",
+        locale: contentfulLocale,
+        "fields.slug": slug,
+        limit: 1,
+        include: 2,
+      });
+
+      if (entries.items.length === 0) {
+        return null;
+      }
+
+      return transformProject(entries.items[0], locale);
+    } catch (error) {
+      console.error("Error fetching project:", error);
+      return null;
+    }
+  },
+  ["project-by-slug"],
+  { tags: ["projects"] }
+);
+
 export async function getProjectBySlug(
   slug: string,
   locale: Locale,
   preview = false
 ): Promise<Project | null> {
-  const contentfulLocale = locale === "tr" ? "tr-TR" : "en-US";
-
-  try {
-    if (!hasDeliveryCreds) {
-      warnMissingCreds();
-      return null;
-    }
-
-    const entries = await getClient(preview).getEntries<ProjectSkeleton>({
-      content_type: "project",
-      locale: contentfulLocale,
-      "fields.slug": slug,
-      limit: 1,
-      include: 2,
-    });
-
-    if (entries.items.length === 0) {
-      return null;
-    }
-
-    return transformProject(entries.items[0], locale);
-  } catch (error) {
-    console.error("Error fetching project:", error);
-    return null;
-  }
+  return getProjectBySlugCached(slug, locale, preview);
 }
 
 // Get all project slugs for static generation

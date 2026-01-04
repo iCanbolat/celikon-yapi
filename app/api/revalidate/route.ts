@@ -1,16 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
+
+export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
+  console.log("🔔 Revalidate webhook received");
+
   try {
     // Verify the webhook secret
     const secret = request.headers.get("x-contentful-webhook-secret");
+    const envSecret = process.env.CONTENTFUL_REVALIDATE_SECRET;
 
-    if (secret !== process.env.CONTENTFUL_REVALIDATE_SECRET) {
+    console.log("🔑 Secret check:", {
+      received: secret ? `${secret.substring(0, 4)}...` : "null",
+      expected: envSecret ? `${envSecret.substring(0, 4)}...` : "NOT SET",
+    });
+
+    if (secret !== envSecret) {
+      console.log("❌ Invalid secret - returning 401");
       return NextResponse.json({ message: "Invalid secret" }, { status: 401 });
     }
 
     const body = await request.json();
+    console.log("📦 Webhook body:", JSON.stringify(body.sys, null, 2));
 
     // Get the content type and sys info from Contentful webhook payload
     const contentType = body.sys?.contentType?.sys?.id;
@@ -31,6 +43,16 @@ export async function POST(request: NextRequest) {
         body.fields?.slug?.[locale] ||
         body.fields?.slug?.["tr-TR"] ||
         body.fields?.slug?.["en-US"];
+
+      // Revalidate cached data by tag (guarded for environments without tag support)
+      try {
+        revalidateTag("projects", "max");
+      } catch (err) {
+        console.warn(
+          "revalidateTag failed, falling back to path revalidation",
+          err
+        );
+      }
 
       // Revalidate project pages
       revalidatePath("/tr/projects", "page");

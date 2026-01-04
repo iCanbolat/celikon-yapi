@@ -61,14 +61,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
             </div>
           )}
 
-          <h3 className="text-xl font-semibold leading-tight text-gray-900 transition-colors group-hover:text-blue-700">
+          <h3 className="text-xl lg:text-lg xl:text-xl font-semibold leading-tight text-gray-900 transition-colors group-hover:text-blue-700">
             {project.title}
           </h3>
 
           {project.shortDescription && (
             <div className="space-y-2">
               <div className="h-0.5 w-10 bg-yellow-400" />
-              <p className="text-sm leading-relaxed text-gray-600 line-clamp-2">
+              <p className="text-sm leading-relaxed text-gray-600 line-clamp-3 lowercase first-letter:uppercase">
                 {project.shortDescription}
               </p>
             </div>
