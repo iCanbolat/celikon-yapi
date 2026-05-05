@@ -6,6 +6,7 @@ import type { Locale } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
 import { getProjectBySlug, getProjects } from "@/lib/contentful";
 import { RichTextRenderer } from "@/components/rich-text-renderer";
+import { ProjectGallery } from "@/components/projects/project-gallery";
 import { ImageWithSkeleton } from "@/components/ui/image-with-skeleton";
 import {
   ArrowLeft,
@@ -149,21 +150,11 @@ export default async function ProjectDetailPage({ params }: Props) {
                   <h2 className="text-2xl font-bold text-gray-900 mb-6">
                     {t("details.gallery")}
                   </h2>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    {project.gallery.map((image, index) => (
-                      <div
-                        key={index}
-                        className="relative h-48 rounded-lg overflow-hidden"
-                      >
-                        <ImageWithSkeleton
-                          src={image.url}
-                          alt={image.title || `${project.title} - ${index + 1}`}
-                          sizes="(max-width: 768px) 50vw, 33vw"
-                          className="hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                    ))}
-                  </div>
+                  <ProjectGallery
+                    images={project.gallery}
+                    projectTitle={project.title}
+                    projectLocation={project.location}
+                  />
                 </div>
               )}
             </div>

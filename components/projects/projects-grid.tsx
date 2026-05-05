@@ -1,9 +1,8 @@
-"use client";
+﻿"use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
 import { ProjectCard } from "./project-card";
 import { Button } from "@/components/ui/button";
 import type { Project, ProjectCategory } from "@/lib/contentful";
@@ -17,11 +16,14 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
   const t = useTranslations("projects");
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get("category") as ProjectCategory | null;
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const [activeCategory, setActiveCategory] = useState<ProjectCategory | "all">(
-    "all"
+    "all",
   );
   const [currentPage, setCurrentPage] = useState(1);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
   const itemsPerPage = 6;
 
   // Set initial category from URL
@@ -29,7 +31,7 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
     if (
       categoryParam &&
       ["depo", "köprü", "fabrika", "restorasyon", "diğer"].includes(
-        categoryParam
+        categoryParam,
       )
     ) {
       setActiveCategory(categoryParam);
@@ -65,6 +67,59 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
     setActiveCategory(category);
   };
 
+  const updateScrollState = () => {
+    const container = scrollContainerRef.current;
+
+    if (!container) {
+      setCanScrollLeft(false);
+      setCanScrollRight(false);
+      return;
+    }
+
+    const hasOverflow = container.scrollWidth > container.clientWidth + 1;
+    const maxScrollLeft = container.scrollWidth - container.clientWidth;
+
+    setCanScrollLeft(hasOverflow && container.scrollLeft > 0);
+    setCanScrollRight(hasOverflow && container.scrollLeft < maxScrollLeft - 1);
+  };
+
+  useEffect(() => {
+    updateScrollState();
+
+    const container = scrollContainerRef.current;
+
+    if (!container) {
+      return;
+    }
+
+    const observer = new ResizeObserver(() => updateScrollState());
+
+    observer.observe(container);
+    container.addEventListener("scroll", updateScrollState, { passive: true });
+    window.addEventListener("resize", updateScrollState);
+
+    return () => {
+      observer.disconnect();
+      container.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+    };
+  }, [activeCategory]);
+
+  const scrollCategories = (direction: "left" | "right") => {
+    const container = scrollContainerRef.current;
+
+    if (!container) {
+      return;
+    }
+
+    const scrollAmount = Math.min(container.clientWidth * 0.8, 320);
+
+    container.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
+
   const goToPage = (page: number) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -72,71 +127,76 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
 
   return (
     <div className="space-y-12">
-      {/* Category Filters */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="flex flex-wrap justify-center gap-0 border-b border-gray-200"
-      >
-        {categories.map((category, index) => (
-          <motion.button
-            key={category.key}
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            onClick={() => handleCategoryChange(category.key)}
-            className={`relative px-8 py-4 text-sm font-semibold uppercase tracking-wider transition-all duration-300 ${
-              activeCategory === category.key
-                ? "bg-linear-to-r from-yellow-400 to-yellow-500 text-gray-900"
-                : "bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-            }`}
+      {/* Category Filters - CSS horizontal scroll with arrow controls */}
+      <div className="border-b border-gray-200 animate-fade-in-up">
+        <div className="flex items-stretch gap-2">
+          {canScrollLeft && (
+            <button
+              type="button"
+              onClick={() => scrollCategories("left")}
+              className="shrink-0 flex items-center justify-center px-3 text-gray-500 transition-colors hover:text-gray-900"
+              aria-label="Kategorileri sola kaydır"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+          )}
+
+          <div
+            ref={scrollContainerRef}
+            className="min-w-0 flex-1 overflow-x-auto scrollbar-hide scroll-smooth"
           >
-            {category.label}
-            {activeCategory === category.key && (
-              <motion.span
-                layoutId="activeCategory"
-                className="absolute bottom-0 left-0 right-0 h-1 bg-yellow-400"
-                transition={{ type: "spring", stiffness: 380, damping: 30 }}
-              />
-            )}
-          </motion.button>
-        ))}
-      </motion.div>
+            <div className="flex w-max md:w-full md:justify-center">
+              {categories.map((category) => (
+                <button
+                  key={category.key}
+                  type="button"
+                  onClick={() => handleCategoryChange(category.key)}
+                  className={`relative px-6 py-4 text-xs font-semibold uppercase tracking-wider transition-all duration-300 whitespace-nowrap sm:px-8 sm:text-sm ${
+                    activeCategory === category.key
+                      ? "bg-neutral-900 text-white"
+                      : "bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                  }`}
+                >
+                  {category.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {canScrollRight && (
+            <button
+              type="button"
+              onClick={() => scrollCategories("right")}
+              className="shrink-0 flex items-center justify-center px-3 text-gray-500 transition-colors hover:text-gray-900"
+              aria-label="Kategorileri sağa kaydır"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          )}
+        </div>
+      </div>
 
       {/* Projects Grid */}
       {filteredProjects.length > 0 ? (
         <>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`${activeCategory}-${currentPage}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            >
-              {currentProjects.map((project, index) => (
-                <motion.div
-                  key={project.id}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                >
-                  <ProjectCard project={project} />
-                </motion.div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
+          <div
+            key={`${activeCategory}-${currentPage}`}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {currentProjects.map((project, index) => (
+              <div
+                key={project.id}
+                className="animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.08}s` }}
+              >
+                <ProjectCard project={project} />
+              </div>
+            ))}
+          </div>
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex items-center justify-center gap-2 mt-8"
-            >
+            <div className="flex items-center justify-center gap-2 mt-8 animate-fade-in">
               <Button
                 variant="yellow"
                 size="icon"
@@ -160,7 +220,7 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
                   >
                     {page}
                   </Button>
-                )
+                ),
               )}
 
               <Button
@@ -172,19 +232,14 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
               >
                 <ChevronRight className="h-5 w-5" />
               </Button>
-            </motion.div>
+            </div>
           )}
         </>
       ) : (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4 }}
-          className="text-center py-12"
-        >
+        <div className="text-center py-12 animate-fade-in-up">
           <Building2 className="w-16 h-16 mx-auto text-gray-400 mb-4" />
           <p className="text-gray-600 text-lg">{t("noProjectsInCategory")}</p>
-        </motion.div>
+        </div>
       )}
     </div>
   );

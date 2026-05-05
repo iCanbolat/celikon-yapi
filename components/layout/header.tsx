@@ -1,13 +1,14 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useParams } from "next/navigation";
 import { type Locale } from "@/i18n/routing";
-import { Menu, X, Globe } from "lucide-react";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function Header() {
   const t = useTranslations("common");
@@ -15,15 +16,24 @@ export function Header() {
   const params = useParams();
   const currentLocale = params.locale as Locale;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [secondNavVisible, setSecondNavVisible] = useState(false);
+  const firstNavRef = useRef<HTMLDivElement>(null);
+  const [firstNavHeight, setFirstNavHeight] = useState(0);
 
-  // Track mount for portal
+  // Mount kontrolü
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Prevent body scroll when menu is open
+  // İlk navbar yüklendiğinde yüksekliğini ölç
+  useEffect(() => {
+    if (firstNavRef.current) {
+      setFirstNavHeight(firstNavRef.current.offsetHeight);
+    }
+  }, []);
+
+  // Menü açıkken scroll'u kilitle
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -35,15 +45,16 @@ export function Header() {
     };
   }, [mobileMenuOpen]);
 
-  // Toggle header background after scrolling past 64px
+  // Scroll ile ikinci navbar’ı göster/gizle
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 64);
+      if (firstNavHeight > 0) {
+        setSecondNavVisible(window.scrollY > firstNavHeight);
+      }
     };
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [firstNavHeight]);
 
   const navItems = [
     { href: "/", label: t("home") },
@@ -52,78 +63,129 @@ export function Header() {
     { href: "/about", label: t("about") },
   ];
 
-  const otherLocale = currentLocale === "tr" ? "en" : "tr";
-
-  const bgClass = scrolled
-    ? "bg-gradient-to-r from-black/60 via-black/50 to-neutral-900/60 backdrop-blur-sm transition-colors duration-300 ease-in-out"
-    : "bg-transparent transition-colors duration-300 ease-in-out";
-
   const linkBase =
-    "text-sm uppercase font-medium transition-colors duration-300 ease-in-out";
-  const linkDefault = "text-white hover:text-yellow-400";
-  const linkActive = "text-yellow-400";
+    "text-sm font-semibold uppercase tracking-[0.08em] transition-colors duration-300 ease-in-out";
+  const linkDefault = "text-black hover:text-blue-600";
+  const linkActive = "text-[#0f2747]";
 
-  return (
-    <motion.header
-      className={`sticky top-0 z-100  ${bgClass}`}
-      initial={{ y: -40, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ type: "spring", stiffness: 120, damping: 16 }}
-    >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="text-xl font-bold text-white">
-            CELİKON
+  const locales: Array<{ code: Locale; label: string; flag: string }> = [
+    { code: "tr", label: "Turkce", flag: "/logos/tr.png" },
+    { code: "en", label: "English", flag: "/logos/en.png" },
+  ];
+
+  // Ortak navbar içeriği (tekrar kullanmak için)
+  const NavContent = ({ isMobile = false }: { isMobile?: boolean }) => (
+    <div className="flex items-center justify-between gap-6 w-full">
+      {/* Logo */}
+      <Link
+        href="/"
+        className={`relative block overflow-hidden ${
+          isMobile ? "h-14 w-14" : "h-18 w-18 sm:h-20 sm:w-20"
+        }`}
+      >
+        <Image
+          src="/logos/logo.jpeg"
+          alt="Celikon logo"
+          fill
+          priority
+          sizes={isMobile ? "56px" : "(max-width: 640px) 72px, 80px"}
+          className="object-cover"
+        />
+      </Link>
+
+      {/* Desktop linkler */}
+      <nav className="hidden md:flex items-center gap-8 lg:gap-10">
+        {navItems.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={`${linkBase} ${
+              pathname === item.href ? linkActive : linkDefault
+            }`}
+          >
+            {item.label}
           </Link>
+        ))}
+      </nav>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
+      {/* Dil seçici + mobil menü butonu */}
+      <div className="flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-2">
+          {locales.map((localeOption) => {
+            const isActive = localeOption.code === currentLocale;
+            return (
               <Link
-                key={item.href}
-                href={item.href}
-                className={`${linkBase} ${
-                  pathname === item.href ? linkActive : linkDefault
+                key={localeOption.code}
+                href={pathname}
+                locale={localeOption.code}
+                aria-label={localeOption.label}
+                className={`flex items-center rounded-sm border px-1.5 py-1 transition-all ${
+                  isActive
+                    ? "border-black/20 bg-black/4 shadow-sm"
+                    : "border-transparent opacity-70 hover:border-[#0f2747]/18 hover:bg-[#0f2747]/4 hover:opacity-100"
                 }`}
               >
-                {item.label}
+                <Image
+                  src={localeOption.flag}
+                  alt={localeOption.label}
+                  width={22}
+                  height={16}
+                  className="h-4 w-5.5 object-cover"
+                />
               </Link>
-            ))}
-          </nav>
+            );
+          })}
+        </div>
 
-          {/* Language Switcher & Mobile Menu Button */}
-          <div className="flex items-center gap-4">
-            <Link
-              href={pathname}
-              locale={otherLocale}
-              className="flex items-center gap-1 text-sm font-semibold text-white hover:text-yellow-400 transition-colors relative z-101"
-            >
-              <Globe className="w-4 h-4" />
-              {otherLocale.toUpperCase()}
-            </Link>
+        <button
+          className="p-2 text-black md:hidden"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+        >
+          {mobileMenuOpen ? (
+            <X className="w-6 h-6" />
+          ) : (
+            <Menu className="w-6 h-6" />
+          )}
+        </button>
+      </div>
+    </div>
+  );
 
-            <button
-              className="md:hidden p-2 relative z-101 text-white"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button>
+  return (
+    <>
+      {/* ===== İlk navbar (normal akış) ===== */}
+      <div
+        ref={firstNavRef}
+        className={`relative bg-white border-b border-black/8 ${mobileMenuOpen ? "z-100" : "z-10"}`}
+      >
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-22 items-center">
+            <NavContent />
           </div>
         </div>
       </div>
 
-      {/* Mobile Navigation with Animated Background - Rendered via Portal */}
+      {/* ===== İkinci navbar (fixed, slide in) ===== */}
+      <div
+        className={`fixed top-0 left-0 w-full transition-transform duration-500 ease-out bg-white backdrop-blur-md border-b border-black/8 shadow-[0_12px_28px_rgba(15,23,42,0.08)] ${mobileMenuOpen ? "z-100" : "z-50"} ${
+          secondNavVisible ? "translate-y-0" : "-translate-y-full"
+        }`}
+      >
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-22 items-center">
+            <NavContent />
+          </div>
+        </div>
+      </div>
+
+      {/* ===== Mobil menü (portal) ===== */}
       {mounted &&
         createPortal(
           <AnimatePresence>
             {mobileMenuOpen && (
               <>
-                {/* Animated Background - Diagonal Wipe */}
+                {/* Animated Background - Circle Wipe */}
                 <motion.div
                   initial={{ clipPath: "circle(0% at 100% 0%)" }}
                   animate={{ clipPath: "circle(150% at 100% 0%)" }}
@@ -134,7 +196,7 @@ export function Header() {
                     damping: 20,
                     duration: 0.6,
                   }}
-                  className="md:hidden fixed inset-0 bg-linear-to-br from-black via-neutral-900 to-black z-90"
+                  className="fixed inset-0 z-90 bg-white md:hidden"
                 />
 
                 {/* Menu Content */}
@@ -143,9 +205,37 @@ export function Header() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ delay: 0.25, duration: 0.3 }}
-                  className="md:hidden fixed inset-0 z-91 flex items-center justify-center"
+                  className="fixed inset-0 z-91 flex items-center justify-center md:hidden"
                 >
                   <div className="flex flex-col items-center gap-8">
+                    <div className="mb-2 flex items-center gap-3">
+                      {locales.map((localeOption) => {
+                        const isActive = localeOption.code === currentLocale;
+                        return (
+                          <Link
+                            key={localeOption.code}
+                            href={pathname}
+                            locale={localeOption.code}
+                            aria-label={localeOption.label}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className={`flex items-center rounded-sm border px-2 py-1.5 transition-all ${
+                              isActive
+                                ? "border-black/20 bg-black/4"
+                                : "border-transparent opacity-70 hover:border-[#0f2747]/18 hover:bg-[#0f2747]/4 hover:opacity-100"
+                            }`}
+                          >
+                            <Image
+                              src={localeOption.flag}
+                              alt={localeOption.label}
+                              width={26}
+                              height={18}
+                              className="h-4.5 w-6.5 object-cover"
+                            />
+                          </Link>
+                        );
+                      })}
+                    </div>
+
                     {navItems.map((item, index) => (
                       <motion.div
                         key={item.href}
@@ -163,8 +253,8 @@ export function Header() {
                           href={item.href}
                           className={`text-3xl font-bold transition-colors ${
                             pathname === item.href
-                              ? "text-yellow-400"
-                              : "text-white hover:text-yellow-400"
+                              ? "text-[#0f2747]"
+                              : "text-black hover:text-[#0f2747]"
                           }`}
                           onClick={() => setMobileMenuOpen(false)}
                         >
@@ -177,8 +267,8 @@ export function Header() {
               </>
             )}
           </AnimatePresence>,
-          document.body
+          document.body,
         )}
-    </motion.header>
+    </>
   );
 }

@@ -33,6 +33,15 @@
   transition-property: transform;
 }
 
+.swiper-fade .swiper-slide {
+  pointer-events: none;
+  transition-property: opacity;
+}
+
+.swiper-fade .swiper-slide-active {
+  pointer-events: auto;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -164,6 +173,104 @@ body {
   background-color: #f9fafb;
 }
 
+/* ── Hero carousel CSS animations ── */
+@keyframes hero-bg-fade {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes hero-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    clip-path: inset(0 0 0% 0);
+  }
+}
+
+@keyframes hero-note-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes partners-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.partners-marquee-track {
+  will-change: transform;
+  animation: partners-marquee 24s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partners-marquee-track {
+    animation: none;
+  }
+}
+
+.hero-bg-enter {
+  animation: hero-bg-fade 3.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-item-1,
+.hero-item-2,
+.hero-item-3,
+.hero-item-4 {
+  opacity: 0;
+  animation: hero-reveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hero-item-1 {
+  animation-delay: 0.06s;
+}
+.hero-item-2 {
+  animation-delay: 0.16s;
+}
+.hero-item-3 {
+  animation-delay: 0.26s;
+}
+.hero-item-4 {
+  animation-delay: 0.36s;
+}
+
+.hero-note-enter {
+  animation: hero-note-in 0.35s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg-enter,
+  .hero-item-1,
+  .hero-item-2,
+  .hero-item-3,
+  .hero-item-4,
+  .hero-note-enter {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+}
+
 /* Hero Section CSS Animations */
 @keyframes fadeInUp {
   from {
@@ -207,4 +314,13 @@ body {
 
 .animate-scroll-bounce {
   animation: scrollBounce 1.5s ease-in-out infinite;
+}
+
+/* ── Hide scrollbar utility ── */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

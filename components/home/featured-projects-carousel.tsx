@@ -66,7 +66,7 @@ export function FeaturedProjectsCarousel({
         <Button
           ref={prevRef}
           aria-label="Previous slide"
-          variant="yellow"
+          variant="default"
           size="icon"
           className="rounded-full shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
         >
@@ -75,7 +75,7 @@ export function FeaturedProjectsCarousel({
         <Button
           ref={nextRef}
           aria-label="Next slide"
-          variant="yellow"
+          variant="default"
           size="icon"
           className="rounded-full shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
         >
@@ -103,7 +103,7 @@ export function FeaturedProjectsCarousel({
           768: { slidesPerView: 2 },
           1024: { slidesPerView: 3 },
         }}
-        className="featured-swiper   pb-12"
+        className="featured-swiper pb-12"
       >
         {projects.map((project) => (
           <SwiperSlide key={`${project.id}-${locale}`}>

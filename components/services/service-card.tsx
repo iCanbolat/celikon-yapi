@@ -1,9 +1,5 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
 import { Link } from "@/i18n/navigation";
 import type { ProjectCategory } from "@/lib/contentful";
 
@@ -22,20 +18,14 @@ export function ServiceCard({
   image,
   category,
 }: ServiceCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
-
   return (
-    <div
-      className="relative border-b border-gray-200 last:border-b-0"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <div className="group relative border-b border-gray-200 last:border-b-0">
       <div className="py-8 md:py-12">
         {/* Mobile Layout */}
         <div className="flex flex-col gap-4 md:hidden">
           {/* Number and Title */}
           <div className="flex items-center gap-4">
-            <span className="text-5xl font-bold text-yellow-400">
+            <span className="text-5xl font-bold text-gray-300">
               {number.toString().padStart(2, "0")}.
             </span>
             <h3 className="text-xl font-bold text-gray-900 flex-1">{title}</h3>
@@ -69,7 +59,7 @@ export function ServiceCard({
         <div className="hidden md:flex items-center gap-8">
           {/* Number and Title */}
           <div className="flex items-center gap-8 flex-1">
-            <span className="text-6xl lg:text-7xl font-bold text-yellow-400">
+            <span className="text-6xl lg:text-7xl font-bold text-gray-300">
               {number.toString().padStart(2, "0")}.
             </span>
             <h3 className="text-2xl lg:text-3xl font-bold text-gray-900">
@@ -78,20 +68,11 @@ export function ServiceCard({
           </div>
 
           {/* Image Container - Shows on Hover */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, rotateZ: -5 }}
-            animate={
-              isHovered
-                ? { opacity: 1, scale: 1, rotateZ: 5 }
-                : { opacity: 0, scale: 0.8, rotateZ: -5 }
-            }
-            transition={{ duration: 0.3 }}
-            className="absolute left-2/5 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none"
-          >
+          <div className="absolute left-2/5 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none opacity-0 scale-[0.8] -rotate-[5deg] transition-all duration-300 group-hover:opacity-100 group-hover:scale-100 group-hover:rotate-[5deg]">
             <div className="relative w-64 h-48 rounded-2xl overflow-hidden shadow-2xl border-8 border-white">
               <Image src={image} alt={title} fill className="object-cover" />
             </div>
-          </motion.div>
+          </div>
 
           {/* Description and Arrow */}
           <div className="flex items-center gap-8 flex-1">

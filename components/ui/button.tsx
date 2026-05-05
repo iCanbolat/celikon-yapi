@@ -9,18 +9,20 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-600",
+          "bg-neutral-900 text-white hover:bg-white hover:text-neutral-900 tracking-[0.18em] uppercase border-2 border-neutral-900 focus-visible:ring-blue-600",
         outline:
-          "border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white focus-visible:ring-blue-600",
+          "border-2 border-neutral-900 px-4  font-black uppercase tracking-[0.18em] text-neutral-900 hover:bg-neutral-900 hover:text-white",
+        outlineWhite:
+          "border-2 border-white px-4 text-[0.64rem] font-black uppercase tracking-[0.18em] text-white hover:bg-white hover:text-neutral-900",
         ghost: "hover:bg-gray-100 hover:text-gray-900",
         link: "text-blue-600 underline-offset-4 hover:underline",
         yellow:
-          "bg-yellow-400 text-gray-900 hover:bg-yellow-500 focus-visible:ring-yellow-400",
+          "bg-blue-600 text-white hover:bg-blue-600 focus-visible:ring-bg-blue-600",
       },
       size: {
         default: "h-12 px-8 py-3",
         sm: "h-9 px-4 py-2 text-xs",
-        lg: "h-14 px-10 py-4 text-base",
+        lg: "h-14 px-10 py-4 text-sm ",
         icon: "h-10 w-10",
       },
     },
@@ -28,11 +30,12 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
+  },
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
 }
@@ -47,7 +50,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       />
     );
-  }
+  },
 );
 Button.displayName = "Button";
 

@@ -3,11 +3,13 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { getFeaturedProjects } from "@/lib/contentful";
-import { ProjectCard } from "@/components/projects/project-card";
 import { Building2, HardHat, Ruler, Users, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HeroSection } from "@/components/home/hero-section";
+import { StatsCounter } from "@/components/home/stats-counter";
 import { SectionHeader } from "@/components/layout/section-header";
+import { TrustedPartners } from "@/components/home/trusted-partners";
+import { StackingServices } from "@/components/home/stacking-services";
 import dynamic from "next/dynamic";
 
 // Lazy load below-the-fold components
@@ -16,28 +18,7 @@ const FeaturedProjectsCarousel = dynamic(
     import("@/components/home/featured-projects-carousel").then((mod) => ({
       default: mod.FeaturedProjectsCarousel,
     })),
-  { loading: () => <div className="h-96" /> }
-);
-const TrustedPartners = dynamic(
-  () =>
-    import("@/components/home/trusted-partners").then((mod) => ({
-      default: mod.TrustedPartners,
-    })),
-  { loading: () => <div className="h-64" /> }
-);
-const StatsCounter = dynamic(
-  () =>
-    import("@/components/home/stats-counter").then((mod) => ({
-      default: mod.StatsCounter,
-    })),
-  { loading: () => <div className="h-32" /> }
-);
-const StackingServices = dynamic(
-  () =>
-    import("@/components/home/stacking-services").then((mod) => ({
-      default: mod.StackingServices,
-    })),
-  { loading: () => <div className="h-screen" /> }
+  { loading: () => <div className="h-96" /> },
 );
 
 type Props = {
@@ -78,7 +59,7 @@ export default async function HomePage({ params }: Props) {
       <HeroSection locale={locale} />
 
       {/* Stats Section */}
-      <section className="pb-16 bg-gray-50">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <SectionHeader
             badge={locale === "tr" ? "Öne Çıkan Değerler" : "Key Numbers"}
@@ -170,7 +151,7 @@ export default async function HomePage({ params }: Props) {
           )}
 
           <div className="text-center mt-8">
-            <Button variant="yellow" size="lg" asChild>
+            <Button variant="default" size="lg" asChild>
               <Link href="/projects">
                 {t("common.allProjects")}
                 <ArrowRight className="w-5 h-5" />

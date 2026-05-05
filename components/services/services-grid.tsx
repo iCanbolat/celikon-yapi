@@ -1,7 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
-
 interface ServicesGridProps {
   children: React.ReactNode;
 }
@@ -12,15 +8,13 @@ export function ServicesGrid({ children }: ServicesGridProps) {
   return (
     <div className="space-y-0">
       {childrenArray.map((child, index) => (
-        <motion.div
+        <div
           key={index}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5, delay: index * 0.15 }}
+          className="animate-fade-in-up"
+          style={{ animationDelay: `${index * 0.15}s` }}
         >
           {child}
-        </motion.div>
+        </div>
       ))}
     </div>
   );

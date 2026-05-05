@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import Image from "next/image";
 
 export function Footer() {
   const t = useTranslations();
@@ -11,9 +12,20 @@ export function Footer() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3  gap-8">
           {/* Company Info */}
-          <div className="flex flex-col items-center md:items-start">
-            <h3 className="text-xl font-bold mb-4">CELİKON</h3>
-            <p className="text-gray-400">{t("footer.description")}</p>
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
+            <Link href="/" className="mb-6 block group">
+              <div className="relative h-16 w-16 bg-white overflow-hidden rounded-lg">
+                <Image
+                  src="/logos/logo.jpeg"
+                  alt="Celikon Logo"
+                  fill
+                  className="object-contain p-1 transition-transform duration-300 group-hover:scale-110"
+                />
+              </div>
+            </Link>
+            <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
+              {t("footer.description")}
+            </p>
           </div>
 
           {/* Quick Links */}

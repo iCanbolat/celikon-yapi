@@ -16,8 +16,8 @@ export function SectionHeader({
   return (
     <div className={`mb-12 ${alignment}`}>
       {badge ? (
-        <div className="inline-flex items-center gap-2 px-3 py-1 bg-yellow-400 text-black text-xs font-semibold uppercase tracking-[0.08em] rounded-sm">
-          <span className="h-1.5 w-1.5 rounded-full bg-black" />
+        <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-600 text-white text-xs font-semibold uppercase tracking-[0.08em] rounded-sm">
+          <span className="h-1.5 w-1.5 rounded-full bg-white" />
           {badge}
         </div>
       ) : null}

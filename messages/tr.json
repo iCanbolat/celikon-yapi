@@ -33,6 +33,7 @@
     },
     "services": {
       "badge": "HİZMETLERİMİZ",
+      "description": "İhtiyaçlarınızı karşılamak için geniş bir inşaat hizmetleri yelpazesi sunuyoruz. Konut projelerinden ticari projelere kadar, olağanüstü sonuçlar elde etmek için uzmanlığımızı kullanıyoruz.",
       "title": "Uzmanlık Alanlarımız",
       "viewProjects": "Projeleri Gör",
       "viewAll": "Tüm Hizmetleri Gör"

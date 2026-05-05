@@ -90,7 +90,7 @@ export default async function ServicesPage({ params }: Props) {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <p className="text-yellow-400 uppercase tracking-wider text-sm font-bold mb-2">
+            <p className="text-blue-600 uppercase tracking-wider text-sm font-bold mb-2">
               {locale === "tr" ? "ÇÖZÜMLER" : "OUR SOLUTION"}
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900">

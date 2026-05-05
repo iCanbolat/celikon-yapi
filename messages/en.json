@@ -6,7 +6,7 @@
     "contact": "Contact",
     "about": "About Us",
     "readMore": "Read More",
-    "viewProject": "View Project",
+    "viewProject": "Vıew Project",
     "allProjects": "All Projects",
     "backToProjects": "Back to Projects",
     "loading": "Loading...",
@@ -32,10 +32,11 @@
       "subtitle": "Take a look at our latest completed projects"
     },
     "services": {
-      "badge": "OUR SERVICES",
+      "badge": "SERVICES",
+      "description": "We offer a wide range of construction services to meet your needs. From residential to commercial projects, we have the expertise to deliver exceptional results.",
       "title": "Our Expertise",
-      "viewProjects": "View Projects",
-      "viewAll": "View All Services"
+      "viewProjects": "Vıew Projects",
+      "viewAll": "Vıew All Servıces"
     }
   },
   "services": {

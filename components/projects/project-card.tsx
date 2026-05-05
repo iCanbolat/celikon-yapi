@@ -36,7 +36,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               <div className="text-3xl font-bold leading-none text-gray-900">
                 {project.year || "—"}
               </div>
-              <div className="mx-auto mt-1 h-0.5 w-6 bg-yellow-400" />
+              <div className="mx-auto mt-1 h-0.5 w-6 bg-neutral-900" />
               {project.location && (
                 <div className="mt-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-gray-500 line-clamp-1">
                   {project.location}
@@ -47,7 +47,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
           {project.categoryLabel && (
             <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full bg-gray-900/90 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-white shadow-lg">
-              <span className="block h-px w-4 bg-yellow-400" />
+              <span className="block h-px w-4 bg-white" />
               {project.categoryLabel}
             </span>
           )}
@@ -56,19 +56,19 @@ export function ProjectCard({ project }: ProjectCardProps) {
         <div className="flex flex-1 flex-col gap-3 p-6">
           {project.client && (
             <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
-              <span className="block h-px w-6 bg-yellow-400" />
+              <span className="block h-px w-6 bg-neutral-900" />
               {project.client}
             </div>
           )}
 
-          <h3 className="text-xl lg:text-lg xl:text-xl font-semibold leading-tight text-gray-900 transition-colors group-hover:text-blue-700">
+          <h3 className="text-xl lg:text-lg xl:text-xl font-semibold leading-tight text-gray-900 transition-colors group-hover:text-blue-700 line-clamp-3">
             {project.title}
           </h3>
 
           {project.shortDescription && (
             <div className="space-y-2">
-              <div className="h-0.5 w-10 bg-yellow-400" />
-              <p className="text-sm leading-relaxed text-gray-600 line-clamp-3 lowercase first-letter:uppercase">
+              <div className="h-0.5 w-10 bg-neutral-900" />
+              <p className="text-sm leading-relaxed text-gray-600 line-clamp-2 lowercase first-letter:uppercase">
                 {project.shortDescription}
               </p>
             </div>
@@ -85,8 +85,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
             </div>
 
             <span className="inline-flex items-center gap-2 text-sm font-semibold text-gray-900 transition-all group-hover:gap-3">
-              Read more
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-yellow-400 text-gray-900 shadow-md transition-transform duration-200 group-hover:translate-x-1">
+              Details
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-900 text-white shadow-md transition-transform duration-200 group-hover:translate-x-1">
                 <ArrowRight className="h-4 w-4" />
               </span>
             </span>

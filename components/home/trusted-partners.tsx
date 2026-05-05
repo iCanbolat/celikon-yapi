@@ -1,7 +1,4 @@
-"use client";
-
 import Image from "next/image";
-import { useEffect, useRef } from "react";
 
 interface TrustedPartnersProps {
   locale: "tr" | "en";
@@ -21,38 +18,8 @@ const partners = [
 ];
 
 export function TrustedPartners({ locale }: TrustedPartnersProps) {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
-
-    let animationId: number;
-    let scrollPosition = 0;
-    const scrollSpeed = 0.5;
-
-    const animate = () => {
-      scrollPosition += scrollSpeed;
-
-      if (scrollPosition >= scrollContainer.scrollWidth / 2) {
-        scrollPosition = 0;
-      }
-
-      scrollContainer.style.transform = `translateX(-${scrollPosition}px)`;
-      animationId = requestAnimationFrame(animate);
-    };
-
-    animationId = requestAnimationFrame(animate);
-
-    return () => {
-      if (animationId) {
-        cancelAnimationFrame(animationId);
-      }
-    };
-  }, []);
-
-  // Duplicate partners for seamless loop
-  const duplicatedPartners = [...partners, ...partners];
+  const marqueeLabel =
+    locale === "tr" ? "Referans ortaklar" : "Trusted partners";
 
   return (
     <section className="py-16 bg-white overflow-hidden">
@@ -65,22 +32,29 @@ export function TrustedPartners({ locale }: TrustedPartnersProps) {
           {/* Scrolling container */}
           <div className="overflow-hidden">
             <div
-              ref={scrollRef}
-              className="flex gap-12 items-center"
-              style={{ willChange: "transform" }}
+              aria-label={marqueeLabel}
+              className="partners-marquee-track flex w-max items-center"
             >
-              {duplicatedPartners.map((partner, index) => (
+              {[0, 1].map((groupIndex) => (
                 <div
-                  key={`${partner.name}-${index}`}
-                  className="shrink-0 w-32 h-20 relative grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
+                  key={groupIndex}
+                  aria-hidden={groupIndex === 1}
+                  className="flex shrink-0 items-center gap-12 pr-12"
                 >
-                  <Image
-                    src={partner.logo}
-                    alt={partner.name}
-                    fill
-                    className="object-contain"
-                    sizes="128px"
-                  />
+                  {partners.map((partner) => (
+                    <div
+                      key={`${groupIndex}-${partner.name}`}
+                      className="relative h-20 w-32 shrink-0 opacity-70 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
+                    >
+                      <Image
+                        src={partner.logo}
+                        alt={partner.name}
+                        fill
+                        className="object-contain"
+                        sizes="128px"
+                      />
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>
